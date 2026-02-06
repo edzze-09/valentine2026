@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For My Forever Rose</title>
+    <style>
+        :root {
+            --bg: #0a0101;
+            --glass: rgba(255, 255, 255, 0.05);
+            --rose-red: #d00000;
+            --rose-mid: #ff0a54;
+            --rose-glow: #ff4d6d;
+            --stem-green: #1a3317;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #1a0505 0%, #050505 100%);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            height: 100%;
+            width: 220px;
+            background: rgba(15, 5, 5, 0.95);
+            backdrop-filter: blur(15px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 60px 20px;
+            transition: left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            cursor: pointer;
+            color: var(--rose-glow);
+            font-size: 1.5rem;
+            background: var(--glass);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .day-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 10px 0;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: 0.3s;
+            padding: 8px;
+        }
+
+        .day-link:hover {
+            color: var(--rose-glow);
+            opacity: 1;
+        }
+
+        .day-link.active {
+            color: var(--rose-glow);
+            opacity: 1;
+            border-left: 2px solid var(--rose-glow);
+        }
+
+        /* --- MODAL --- */
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(15, 0, 5, 0.98);
+            border: 1px solid var(--rose-glow);
+            padding: 30px;
+            border-radius: 24px;
+            color: white;
+            z-index: 2000;
+            text-align: center;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 260px;
+        }
+
+        .modal.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal button {
+            margin-top: 20px;
+            background: var(--rose-glow);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 10px white;
+            z-index: 100;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            width: 90vw;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .rose-svg {
+            width: 100%;
+            height: auto;
+            max-height: 45vh;
+            overflow: visible;
+            filter: drop-shadow(0 0 20px var(--rose-red));
+        }
+
+        .stem {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: growStem 1.5s ease-out forwards;
+        }
+
+        .petal {
+            transform: scale(0);
+            transform-origin: 100px 105px;
+            opacity: 0;
+            stroke: rgba(0, 0, 0, 0.15);
+            stroke-width: 0.3;
+        }
+
+        .layer-1 {
+            animation: bloom 1s ease-out 1.0s forwards;
+        }
+
+        .layer-2 {
+            animation: bloom 1s ease-out 1.3s forwards;
+        }
+
+        .layer-3 {
+            animation: bloom 1s ease-out 1.6s forwards;
+        }
+
+        .layer-4 {
+            animation: bloom 1s ease-out 1.9s forwards;
+        }
+
+        .layer-5 {
+            animation: bloom 0.8s ease-out 2.2s forwards;
+        }
+
+        @keyframes growStem {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes bloom {
+            0% {
+                transform: scale(0) rotate(-10deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1.7) rotate(0);
+                opacity: 1;
+            }
+        }
+
+        .subtext {
+            color: #ffb3c1;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 15px;
+            opacity: 0.7;
+        }
+
+        .typewriter {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-top: 8px;
+            min-height: 2.5em;
+            line-height: 1.4;
+        }
+
+        .btn {
+            margin-top: 15px;
+            background: transparent;
+            border: 1px solid var(--rose-glow);
+            color: var(--rose-glow);
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background: var(--rose-glow);
+            color: white;
+            box-shadow: 0 0 20px var(--rose-glow);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+    <div class="sidebar" id="sidebar">
+        <div style="color:var(--rose-glow); font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 15px;">VALENTINE'S
+            WEEK</div>
+        <div class="day-link active" onclick="toggleSidebar()">Rose Day</div>
+        <div class="day-link" onclick="showWait('Propose Day')">Propose Day</div>
+        <div class="day-link" onclick="showWait('Chocolate Day')">Chocolate Day</div>
+        <div class="day-link" onclick="showWait('Teddy Day')">Teddy Day</div>
+        <div class="day-link" onclick="showWait('Promise Day')">Promise Day</div>
+        <div class="day-link" onclick="showWait('Hug Day')">Hug Day</div>
+        <div class="day-link" onclick="showWait('Kiss Day')">Kiss Day</div>
+        <div class="day-link" onclick="showWait('Valentine Day')">Valentine Day</div>
+    </div>
+
+    <div id="waitModal" class="modal">
+        <h3 id="modalTitle" style="color:var(--rose-glow)"></h3>
+        <p>Wait for the day to come to see this, my love. ❤️</p>
+        <button onclick="closeWait()">I'll wait</button>
+    </div>
+
+    <div class="card">
+        <svg class="rose-svg" viewBox="0 0 200 220">
+            <path class="stem" d="M100,210 Q105,170 100,130 Q98,110 100,105" fill="none" stroke="var(--stem-green)"
+                stroke-width="4" stroke-linecap="round" />
+
+            <path class="petal layer-1" d="M100,180 Q130,170 120,150 Q110,145 100,180" fill="var(--stem-green)" />
+            <path class="petal layer-1" d="M100,170 Q70,160 80,140 Q90,135 100,170" fill="var(--stem-green)" />
+
+            <path class="petal layer-1" d="M100,105 C40,20 0,70 100,105 C200,70 160,20 100,105" fill="url(#grad1)" />
+            <path class="petal layer-2" d="M100,105 C50,10 10,90 100,105" fill="url(#grad1)" />
+            <path class="petal layer-2" d="M100,105 C150,10 190,90 100,105" fill="url(#grad1)" />
+            <path class="petal layer-3" d="M100,105 C60,40 20,110 100,105" fill="url(#grad2)" />
+            <path class="petal layer-3" d="M100,105 C140,40 180,110 100,105" fill="url(#grad2)" />
+            <path class="petal layer-3" d="M100,105 C70,30 130,30 100,105" fill="url(#grad2)" />
+            <path class="petal layer-4" d="M100,105 C80,45 50,95 100,105" fill="var(--rose-mid)" />
+            <path class="petal layer-4" d="M100,105 C120,45 150,95 100,105" fill="var(--rose-mid)" />
+            <path class="petal layer-5" d="M100,105 C85,60 115,60 100,105" fill="var(--rose-glow)" />
+            <path class="petal layer-5" d="M100,105 C92,75 108,75 100,105" fill="#fff" opacity="0.3" />
+
+            <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:var(--rose-glow)" />
+                    <stop offset="100%" style="stop-color:var(--rose-red)" />
+                </linearGradient>
+                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:var(--rose-mid)" />
+                    <stop offset="100%" style="stop-color:var(--rose-red)" />
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <div class="subtext">Rose Day 2026</div>
+        <div class="typewriter" id="text"></div>
+        <button class="btn" onclick="addMoreBloom()">Grow More Love</button>
+    </div>
+
+    <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+        function showWait(day) {
+            document.getElementById('modalTitle').innerText = day;
+            document.getElementById('waitModal').classList.add('show');
+            toggleSidebar();
+        }
+        function closeWait() { document.getElementById('waitModal').classList.remove('show'); }
+
+        const textElement = document.getElementById('text');
+        // UPDATED TEXT
+        const message = "To the most beautiful girl in the world...";
+        let i = 0;
+        function typeWriter() {
+            if (i < message.length) {
+                textElement.innerHTML += message.charAt(i);
+                i++;
+                setTimeout(typeWriter, 70);
+            }
+        }
+        setTimeout(typeWriter, 2800);
+
+        function spawnParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            document.body.appendChild(particle);
+            const size = Math.random() * 5 + 2;
+            particle.style.width = `${size}px`; particle.style.height = `${size}px`;
+            particle.style.left = `${x}px`; particle.style.top = `${y}px`;
+            particle.animate([{ transform: 'scale(1)', opacity: 1 }, { transform: 'scale(0)', opacity: 0 }], { duration: 1000 }).onfinish = () => particle.remove();
+        }
+        document.addEventListener('mousemove', (e) => spawnParticle(e.clientX, e.clientY));
+        document.addEventListener('touchmove', (e) => spawnParticle(e.touches[0].clientX, e.touches[0].clientY));
+
+        function addMoreBloom() {
+            // EMOJI LIST
+            const items = ['💖', '💞', '♾️', '🌹', '🌸', '🪷', '🌻', '🌼', '🌷', '❤️', '✨'];
+            for (let j = 0; j < 20; j++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.innerHTML = items[Math.floor(Math.random() * items.length)];
+                    emoji.style.position = 'absolute';
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.top = '105vh';
+                    emoji.style.fontSize = Math.random() * 20 + 20 + 'px';
+                    emoji.style.userSelect = 'none';
+                    emoji.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(-110vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ], { duration: Math.random() * 2000 + 3000, easing: 'ease-out' }).onfinish = () => emoji.remove();
+                    document.body.appendChild(emoji);
+                }, j * 100);
+            }
+        }
+    </script>
+</body>
+
+</html>
