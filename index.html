@@ -13,6 +13,9 @@
             --rose-mid: #ff0a54;
             --rose-glow: #ff4d6d;
             --stem-green: #1a3317;
+            --ring-platinum: linear-gradient(45deg, #d3d3d3, #ffffff, #a9a9a9, #ffffff, #808080);
+            --diamond-sparkle: #e0f7fa;
+            --box-velvet: #3a0202;
         }
 
         body {
@@ -26,7 +29,6 @@
             font-family: 'Georgia', serif;
         }
 
-        /* --- SIDEBAR --- */
         .sidebar {
             position: fixed;
             left: -250px;
@@ -87,46 +89,6 @@
             border-left: 2px solid var(--rose-glow);
         }
 
-        /* --- MODAL --- */
-        .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: rgba(15, 0, 5, 0.98);
-            border: 1px solid var(--rose-glow);
-            padding: 30px;
-            border-radius: 24px;
-            color: white;
-            z-index: 2000;
-            text-align: center;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 260px;
-        }
-
-        .modal.show {
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .modal button {
-            margin-top: 20px;
-            background: var(--rose-glow);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            color: white;
-            cursor: pointer;
-        }
-
-        .particle {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            pointer-events: none;
-            box-shadow: 0 0 10px white;
-            z-index: 100;
-        }
-
         .card {
             background: var(--glass);
             backdrop-filter: blur(15px);
@@ -142,14 +104,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 450px;
+        }
+
+        .graphic-container {
+            width: 100%;
+            height: 260px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
         }
 
         .rose-svg {
+            position: absolute;
             width: 100%;
-            height: auto;
-            max-height: 45vh;
-            overflow: visible;
-            filter: drop-shadow(0 0 20px var(--rose-red));
+            height: 100%;
+            transition: 0.8s;
         }
 
         .stem {
@@ -186,6 +158,98 @@
             animation: bloom 0.8s ease-out 2.2s forwards;
         }
 
+        .propose-wrap {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.8s;
+        }
+
+        .box-outer {
+            position: absolute;
+            width: 120px;
+            height: 140px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .box-lid {
+            width: 105px;
+            height: 80px;
+            background: linear-gradient(135deg, #6a0202 0%, #2a0101 100%);
+            border-radius: 12px 12px 2px 2px;
+            transform-origin: bottom;
+            transition: transform 1.8s ease-in-out;
+            border: 1px solid #1a0000;
+            z-index: 5;
+        }
+
+        .box-bottom {
+            width: 105px;
+            height: 50px;
+            background: #1a0000;
+            border-radius: 2px 2px 12px 12px;
+            box-shadow: inset 0 0 25px black;
+            z-index: 3;
+            position: relative;
+        }
+
+        .box-glow {
+            position: absolute;
+            top: 75px;
+            width: 85px;
+            height: 35px;
+            background: radial-gradient(circle, #ffffff 0%, transparent 80%);
+            opacity: 0;
+            transition: 1.8s ease-in-out;
+            z-index: 4;
+        }
+
+        .ring-svg {
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            opacity: 0;
+            z-index: 10;
+            transform: translateY(30px) scale(0.4);
+            transition: transform 2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 1.5s;
+        }
+
+        .propose-wrap.open .box-lid {
+            transform: rotateX(-125deg);
+        }
+
+        .propose-wrap.open .box-glow {
+            opacity: 0.3;
+        }
+
+        .propose-wrap.open .ring-svg {
+            opacity: 1;
+            transform: translateY(-20px) scale(0.9);
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+        }
+
+        .bg-petal {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            background: var(--rose-glow);
+            border-radius: 100% 0% 100% 50%;
+            opacity: 0.6;
+            filter: blur(1px);
+        }
+
+        .hidden {
+            opacity: 0 !important;
+            pointer-events: none;
+            transform: scale(0.5);
+        }
+
         @keyframes growStem {
             to {
                 stroke-dashoffset: 0;
@@ -194,34 +258,62 @@
 
         @keyframes bloom {
             0% {
-                transform: scale(0) rotate(-10deg);
+                transform: scale(0);
                 opacity: 0;
             }
 
             100% {
-                transform: scale(1.7) rotate(0);
+                transform: scale(1.7);
                 opacity: 1;
             }
-        }
-
-        .subtext {
-            color: #ffb3c1;
-            font-size: 0.75rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: 15px;
-            opacity: 0.7;
         }
 
         .typewriter {
             color: #fff;
             font-size: 1.2rem;
-            margin-top: 8px;
+            margin-top: 20px;
             min-height: 2.5em;
             line-height: 1.4;
+            padding: 0 20px;
+            text-align: center;
         }
 
-        .btn {
+        #yes-btn {
+            display: none;
+            margin-top: 20px;
+            background: var(--rose-glow);
+            border: none;
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--rose-glow);
+            animation: pulse 2s infinite;
+            transition: 0.3s;
+        }
+
+        #yes-btn:hover {
+            transform: scale(1.1);
+            background: #ff758c;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .btn-grow {
             margin-top: 15px;
             background: transparent;
             border: 1px solid var(--rose-glow);
@@ -229,15 +321,25 @@
             padding: 8px 20px;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s;
             font-size: 0.75rem;
             text-transform: uppercase;
         }
 
-        .btn:hover {
-            background: var(--rose-glow);
-            color: white;
-            box-shadow: 0 0 20px var(--rose-glow);
+        .particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Confetti Piece */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            z-index: 1000;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -248,112 +350,170 @@
     <div class="sidebar" id="sidebar">
         <div style="color:var(--rose-glow); font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 15px;">VALENTINE'S
             WEEK</div>
-        <div class="day-link active" onclick="toggleSidebar()">Rose Day</div>
-        <div class="day-link" onclick="showWait('Propose Day')">Propose Day</div>
-        <div class="day-link" onclick="showWait('Chocolate Day')">Chocolate Day</div>
-        <div class="day-link" onclick="showWait('Teddy Day')">Teddy Day</div>
-        <div class="day-link" onclick="showWait('Promise Day')">Promise Day</div>
-        <div class="day-link" onclick="showWait('Hug Day')">Hug Day</div>
-        <div class="day-link" onclick="showWait('Kiss Day')">Kiss Day</div>
-        <div class="day-link" onclick="showWait('Valentine Day')">Valentine Day</div>
-    </div>
-
-    <div id="waitModal" class="modal">
-        <h3 id="modalTitle" style="color:var(--rose-glow)"></h3>
-        <p>Wait for the day to come to see this, my love. ❤️</p>
-        <button onclick="closeWait()">I'll wait</button>
+        <div id="link-propose" class="day-link active" onclick="switchTo('propose')">Propose Day</div>
+        <div id="link-rose" class="day-link" onclick="switchTo('rose')">Rose Day</div>
     </div>
 
     <div class="card">
-        <svg class="rose-svg" viewBox="0 0 200 220">
-            <path class="stem" d="M100,210 Q105,170 100,130 Q98,110 100,105" fill="none" stroke="var(--stem-green)"
-                stroke-width="4" stroke-linecap="round" />
+        <div class="graphic-container">
+            <svg id="rose-svg" class="rose-svg hidden" viewBox="0 0 200 220">
+                <path class="stem" d="M100,210 Q105,170 100,130 Q98,110 100,105" fill="none" stroke="var(--stem-green)"
+                    stroke-width="4" stroke-linecap="round" />
+                <path class="petal layer-1" d="M100,180 Q130,170 120,150 Q110,145 100,180" fill="var(--stem-green)" />
+                <path class="petal layer-1" d="M100,170 Q70,160 80,140 Q90,135 100,170" fill="var(--stem-green)" />
+                <path class="petal layer-1" d="M100,105 C40,20 0,70 100,105 C200,70 160,20 100,105"
+                    fill="url(#grad1)" />
+                <path class="petal layer-2" d="M100,105 C50,10 10,90 100,105" fill="url(#grad1)" />
+                <path class="petal layer-2" d="M100,105 C150,10 190,90 100,105" fill="url(#grad1)" />
+                <path class="petal layer-3" d="M100,105 C60,40 20,110 100,105" fill="url(#grad2)" />
+                <path class="petal layer-3" d="M100,105 C140,40 180,110 100,105" fill="url(#grad2)" />
+                <path class="petal layer-4" d="M100,105 C80,45 50,95 100,105" fill="var(--rose-mid)" />
+                <path class="petal layer-5" d="M100,105 C92,75 108,75 100,105" fill="#fff" opacity="0.3" />
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:var(--rose-glow)" />
+                        <stop offset="100%" style="stop-color:var(--rose-red)" />
+                    </linearGradient>
+                    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:var(--rose-mid)" />
+                        <stop offset="100%" style="stop-color:var(--rose-red)" />
+                    </linearGradient>
+                    <linearGradient id="plat-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#d3d3d3" />
+                        <stop offset="25%" style="stop-color:#ffffff" />
+                        <stop offset="50%" style="stop-color:#a9a9a9" />
+                        <stop offset="75%" style="stop-color:#ffffff" />
+                        <stop offset="100%" style="stop-color:#808080" />
+                    </linearGradient>
+                </defs>
+            </svg>
 
-            <path class="petal layer-1" d="M100,180 Q130,170 120,150 Q110,145 100,180" fill="var(--stem-green)" />
-            <path class="petal layer-1" d="M100,170 Q70,160 80,140 Q90,135 100,170" fill="var(--stem-green)" />
+            <div id="propose-wrap" class="propose-wrap">
+                <div class="box-outer">
+                    <div class="box-lid"></div>
+                    <div class="box-glow"></div>
+                    <div class="box-bottom"></div>
+                </div>
+                <svg class="ring-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="65" r="24" stroke="url(#plat-grad)" stroke-width="5" fill="none" />
+                    <path d="M50 22 L65 38 L50 54 L35 38 Z" fill="#fff" />
+                    <path d="M50 22 L58 38 L50 54 L42 38 Z" fill="var(--diamond-sparkle)" opacity="0.8" />
+                </svg>
+            </div>
+        </div>
 
-            <path class="petal layer-1" d="M100,105 C40,20 0,70 100,105 C200,70 160,20 100,105" fill="url(#grad1)" />
-            <path class="petal layer-2" d="M100,105 C50,10 10,90 100,105" fill="url(#grad1)" />
-            <path class="petal layer-2" d="M100,105 C150,10 190,90 100,105" fill="url(#grad1)" />
-            <path class="petal layer-3" d="M100,105 C60,40 20,110 100,105" fill="url(#grad2)" />
-            <path class="petal layer-3" d="M100,105 C140,40 180,110 100,105" fill="url(#grad2)" />
-            <path class="petal layer-3" d="M100,105 C70,30 130,30 100,105" fill="url(#grad2)" />
-            <path class="petal layer-4" d="M100,105 C80,45 50,95 100,105" fill="var(--rose-mid)" />
-            <path class="petal layer-4" d="M100,105 C120,45 150,95 100,105" fill="var(--rose-mid)" />
-            <path class="petal layer-5" d="M100,105 C85,60 115,60 100,105" fill="var(--rose-glow)" />
-            <path class="petal layer-5" d="M100,105 C92,75 108,75 100,105" fill="#fff" opacity="0.3" />
-
-            <defs>
-                <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:var(--rose-glow)" />
-                    <stop offset="100%" style="stop-color:var(--rose-red)" />
-                </linearGradient>
-                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:var(--rose-mid)" />
-                    <stop offset="100%" style="stop-color:var(--rose-red)" />
-                </linearGradient>
-            </defs>
-        </svg>
-
-        <div class="subtext">Rose Day 2026</div>
         <div class="typewriter" id="text"></div>
-        <button class="btn" onclick="addMoreBloom()">Grow More Love</button>
+        <button id="yes-btn" onclick="celebrate()">YES!</button>
+        <button class="btn-grow" onclick="addMoreBloom()">Grow More Love</button>
     </div>
 
     <script>
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-        function showWait(day) {
-            document.getElementById('modalTitle').innerText = day;
-            document.getElementById('waitModal').classList.add('show');
-            toggleSidebar();
-        }
-        function closeWait() { document.getElementById('waitModal').classList.remove('show'); }
-
         const textElement = document.getElementById('text');
-        // UPDATED TEXT
-        const message = "To the most beautiful girl in the world...";
-        let i = 0;
-        function typeWriter() {
-            if (i < message.length) {
-                textElement.innerHTML += message.charAt(i);
-                i++;
-                setTimeout(typeWriter, 70);
+        const yesBtn = document.getElementById('yes-btn');
+        let petalInterval;
+        let typewriterTimeout;
+        let isAccepted = false;
+
+        function typeWriter(txt, i = 0) {
+            if (i === 0) {
+                clearTimeout(typewriterTimeout);
+                textElement.innerHTML = '';
+                yesBtn.style.display = 'none';
+            }
+            if (i < txt.length) {
+                textElement.innerHTML += txt.charAt(i);
+                typewriterTimeout = setTimeout(() => typeWriter(txt, i + 1), 60);
+            } else if (txt.includes("Valentine?") && !isAccepted) {
+                setTimeout(() => { yesBtn.style.display = 'block'; }, 500);
             }
         }
-        setTimeout(typeWriter, 2800);
 
-        function spawnParticle(x, y) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            document.body.appendChild(particle);
-            const size = Math.random() * 5 + 2;
-            particle.style.width = `${size}px`; particle.style.height = `${size}px`;
-            particle.style.left = `${x}px`; particle.style.top = `${y}px`;
-            particle.animate([{ transform: 'scale(1)', opacity: 1 }, { transform: 'scale(0)', opacity: 0 }], { duration: 1000 }).onfinish = () => particle.remove();
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'bg-petal';
+            const size = Math.random() * 10 + 5;
+            petal.style.width = size + 'px';
+            petal.style.height = size + 'px';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.top = '-20px';
+            document.body.appendChild(petal);
+
+            petal.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 0.6 },
+                { transform: `translateY(110vh) translateX(${Math.random() * 200 - 100}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+            ], { duration: Math.random() * 3000 + 4000, easing: 'linear' }).onfinish = () => petal.remove();
         }
-        document.addEventListener('mousemove', (e) => spawnParticle(e.clientX, e.clientY));
-        document.addEventListener('touchmove', (e) => spawnParticle(e.touches[0].clientX, e.touches[0].clientY));
 
-        function addMoreBloom() {
-            // EMOJI LIST
-            const items = ['💖', '💞', '♾️', '🌹', '🌸', '🪷', '🌻', '🌼', '🌷', '❤️', '✨'];
-            for (let j = 0; j < 20; j++) {
+        function celebrate() {
+            isAccepted = true;
+            yesBtn.style.display = 'none';
+
+            // Vibrant Confetti
+            const colors = ['#ff4d6d', '#ffd700', '#ffffff', '#ff758c', '#00e5ff'];
+            for (let i = 0; i < 100; i++) {
                 setTimeout(() => {
-                    const emoji = document.createElement('div');
-                    emoji.innerHTML = items[Math.floor(Math.random() * items.length)];
-                    emoji.style.position = 'absolute';
-                    emoji.style.left = Math.random() * 100 + 'vw';
-                    emoji.style.top = '105vh';
-                    emoji.style.fontSize = Math.random() * 20 + 20 + 'px';
-                    emoji.style.userSelect = 'none';
-                    emoji.animate([
+                    const c = document.createElement('div');
+                    c.className = 'confetti';
+                    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    c.style.left = Math.random() * 100 + 'vw';
+                    c.style.top = '-10px';
+                    c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                    document.body.appendChild(c);
+
+                    c.animate([
                         { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                        { transform: `translateY(-110vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-                    ], { duration: Math.random() * 2000 + 3000, easing: 'ease-out' }).onfinish = () => emoji.remove();
-                    document.body.appendChild(emoji);
-                }, j * 100);
+                        { transform: `translateY(105vh) translateX(${(Math.random() - 0.5) * 20}vw) rotate(${Math.random() * 1000}deg)`, opacity: 0 }
+                    ], { duration: Math.random() * 2000 + 3000, easing: 'cubic-bezier(0,.37,.44,1)' }).onfinish = () => c.remove();
+                }, i * 15);
+            }
+
+            // Final Message
+            typeWriter("I'm the happiest person alive! I promise to love you forever... ❤️");
+        }
+
+        function switchTo(day) {
+            if (document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
+            document.querySelectorAll('.day-link').forEach(l => l.classList.remove('active'));
+            clearInterval(petalInterval);
+
+            const rose = document.getElementById('rose-svg');
+            const wrap = document.getElementById('propose-wrap');
+
+            if (day === 'rose') {
+                document.getElementById('link-rose').classList.add('active');
+                rose.classList.remove('hidden');
+                wrap.classList.add('hidden');
+                typeWriter("To the most beautiful girl in the world...");
+            } else {
+                document.getElementById('link-propose').classList.add('active');
+                rose.classList.add('hidden');
+                wrap.classList.remove('hidden');
+                petalInterval = setInterval(createPetal, 300);
+
+                setTimeout(() => {
+                    wrap.classList.add('open');
+                    // Only show proposal if she hasn't said YES yet
+                    if (!isAccepted) {
+                        typeWriter("I want to spend the rest of my life with you... Will you be my Valentine?");
+                    } else {
+                        textElement.innerHTML = "I promise to love you forever... ❤️";
+                    }
+                }, 500);
             }
         }
+
+        window.onload = () => {
+            switchTo('propose');
+        };
+
+        document.addEventListener('mousemove', (e) => {
+            const p = document.createElement('div');
+            p.className = 'particle'; p.style.left = e.clientX + 'px'; p.style.top = e.clientY + 'px';
+            p.style.width = p.style.height = Math.random() * 5 + 2 + 'px';
+            document.body.appendChild(p);
+            p.animate([{ opacity: 1 }, { opacity: 0 }], 1000).onfinish = () => p.remove();
+        });
     </script>
 </body>
 
