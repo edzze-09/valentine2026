@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Forever Rose</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg: #0a0101;
@@ -16,6 +19,13 @@
             --ring-platinum: linear-gradient(45deg, #d3d3d3, #ffffff, #a9a9a9, #ffffff, #808080);
             --diamond-sparkle: #e0f7fa;
             --box-velvet: #3a0202;
+            --promise-gold: #e8c97e;
+            --promise-cream: #fff8f0;
+            --promise-purple: #2a1040;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -27,12 +37,15 @@
             align-items: center;
             overflow: hidden;
             font-family: 'Georgia', serif;
-            /* Updated transition to 1.5s */
-            transition: background 1.5s ease-in-out;
+            transition: background 2.5s ease-in-out;
         }
 
         body.night-sky {
             background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+        }
+
+        body.promise-sky {
+            background: radial-gradient(ellipse at top, #2a1040 0%, #1a0828 50%, #0d0418 100%);
         }
 
         .sidebar {
@@ -308,7 +321,7 @@
             border-radius: 50%;
             pointer-events: none;
             animation: twinkle 3s infinite;
-            transition: opacity 3s ease;
+            transition: opacity 4s ease;
         }
 
         @keyframes twinkle {
@@ -374,23 +387,19 @@
             pointer-events: none;
         }
 
-        /* Added smooth brightness pulse for romantic pink */
         body.romantic-pink {
-            background: radial-gradient(ellipse at center, #ff9ecd 0%, #ff6b9d 50%, #c9184a 100%);
-            animation: backgroundPulse 8s infinite alternate ease-in-out;
+            animation: gradualPink 2s ease-in-out forwards;
         }
 
-        @keyframes backgroundPulse {
-            from {
-                filter: brightness(1);
+        @keyframes gradualPink {
+            0% {
+                background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
             }
 
-            to {
-                filter: brightness(1.15);
+            100% {
+                background: radial-gradient(ellipse at center, #ff9ecd 0%, #ff6b9d 50%, #c9184a 100%);
             }
         }
-
-        /* Transition step classes removed as they are no longer necessary for a smooth single-step transition */
 
         .floating-heart {
             position: absolute;
@@ -464,35 +473,11 @@
             background: radial-gradient(circle at 30% 30%, #ffffff, #e0e0e0);
             box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
             z-index: 2;
-            transition: opacity 3s ease;
+            transition: opacity 2s ease;
         }
 
         body.romantic-pink .moon {
             opacity: 0.2;
-        }
-
-        .gif-container {
-            position: fixed;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 199;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-            max-width: 300px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .gif-container.show {
-            opacity: 1;
-        }
-
-        .gif-container img {
-            width: 100%;
-            height: auto;
-            display: block;
         }
 
         .yes-button {
@@ -615,6 +600,352 @@
             pointer-events: none;
             z-index: 100;
         }
+
+        /* ======================== */
+        /*     PROMISE DAY STYLES   */
+        /* ======================== */
+
+        #promise-scene {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            padding: 30px 10px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #promise-scene.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .promise-scroll {
+            width: 88vw;
+            max-width: 480px;
+            max-height: 92vh;
+            background: linear-gradient(160deg, #1e0a38 0%, #130524 60%, #0d0318 100%);
+            border: 1px solid rgba(232, 201, 126, 0.25);
+            border-radius: 4px 4px 8px 8px;
+            position: relative;
+            box-shadow:
+                0 0 80px rgba(180, 80, 220, 0.12),
+                0 0 30px rgba(232, 201, 126, 0.08),
+                0 30px 60px rgba(0, 0, 0, 0.7),
+                inset 0 0 60px rgba(0, 0, 0, 0.4);
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Scroll top roller */
+        .scroll-roller {
+            position: absolute;
+            left: -6px;
+            right: -6px;
+            height: 22px;
+            background: linear-gradient(180deg, #2e1a08 0%, #5c3b12 30%, #c8962e 50%, #5c3b12 70%, #2e1a08 100%);
+            border-radius: 11px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 220, 100, 0.3);
+            z-index: 5;
+        }
+
+        .scroll-roller.top {
+            top: -11px;
+        }
+
+        .scroll-roller.bottom {
+            bottom: -11px;
+        }
+
+        /* Gold trim lines */
+        .scroll-roller::before,
+        .scroll-roller::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ffe066, #b8860b);
+            box-shadow: 0 0 6px rgba(255, 200, 50, 0.6);
+        }
+
+        .scroll-roller::before {
+            left: 8px;
+        }
+
+        .scroll-roller::after {
+            right: 8px;
+        }
+
+        .scroll-inner {
+            padding: 22px 22px 28px;
+        }
+
+        /* Decorative border inside scroll */
+        .scroll-border {
+            border: 1px solid rgba(232, 201, 126, 0.15);
+            border-radius: 2px;
+            padding: 18px 14px 22px;
+            position: relative;
+        }
+
+        /* Corner ornaments */
+        .scroll-border::before,
+        .scroll-border::after {
+            content: '✦';
+            position: absolute;
+            color: rgba(232, 201, 126, 0.5);
+            font-size: 0.6rem;
+        }
+
+        .scroll-border::before {
+            top: 6px;
+            left: 8px;
+        }
+
+        .scroll-border::after {
+            top: 6px;
+            right: 8px;
+        }
+
+        .promise-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.35rem;
+            color: var(--promise-gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(232, 201, 126, 0.4);
+            margin: 0 0 4px;
+        }
+
+        .promise-date-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 8px 0;
+            color: rgba(232, 201, 126, 0.35);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+        }
+
+        .promise-date-ornament .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(232, 201, 126, 0.3), transparent);
+        }
+
+        .promise-intro em {
+            color: rgba(232, 201, 126, 0.85);
+            font-style: normal;
+        }
+
+
+        .promise-header {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .promises-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            color: rgba(232, 201, 126, 0.4);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .promise-intro {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            color: rgba(255, 220, 200, 0.7);
+            text-align: center;
+            line-height: 1.55;
+            margin-bottom: 14px;
+            letter-spacing: 0.2px;
+        }
+
+        /* Floating promise particles */
+        .promise-mote {
+            position: fixed;
+            pointer-events: none;
+            z-index: 3;
+            animation: promiseDrift 8s ease-in-out infinite;
+        }
+
+        @keyframes promiseDrift {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.7;
+            }
+
+            85% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-30vh) translateX(20px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        /* Candle ambiance */
+        .candle-glow {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: candleFlicker 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes candleFlicker {
+            0% {
+                opacity: 0.08;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.14;
+                transform: scale(1.05);
+            }
+
+            100% {
+                opacity: 0.09;
+                transform: scale(0.97);
+            }
+        }
+
+        /* Promise star (different from regular star — gold-tinted) */
+        .promise-star {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            animation: promiseTwinkle 4s infinite;
+        }
+
+        @keyframes promiseTwinkle {
+
+            0%,
+            100% {
+                opacity: 0.1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .promise-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Scrollable promise list */
+        .promise-list-wrap {
+            max-height: calc(90vh - 240px);
+            min-height: 100px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .promise-list-wrap::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Fade hint at bottom of list */
+        .promise-list-fade {
+            position: relative;
+        }
+
+        .promise-list-fade::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, rgba(19, 5, 36, 0.95));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .promise-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 14px;
+            position: relative;
+            animation: promiseReveal 0.6s ease both;
+        }
+
+        @keyframes promiseReveal {
+            from {
+                opacity: 0;
+                transform: translateX(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .promise-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            font-style: italic;
+            color: rgba(232, 201, 126, 0.45);
+            min-width: 18px;
+            padding-top: 2px;
+            text-align: right;
+            line-height: 1.5;
+        }
+
+        .promise-text {
+            flex: 1;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.98rem;
+            color: rgba(255, 235, 215, 0.88);
+            line-height: 1.65;
+            padding: 0 0 10px 0;
+            border-bottom: 1px solid rgba(232, 201, 126, 0.1);
+            letter-spacing: 0.2px;
+        }
+
+        .promise-item:last-child .promise-text {
+            border-bottom: none;
+        }
+
+        .promise-item .heart-mark {
+            min-width: 14px;
+            font-size: 0.65rem;
+            padding-top: 4px;
+            color: rgba(232, 201, 126, 0.5);
+            line-height: 1.5;
+        }
     </style>
 </head>
 
@@ -625,10 +956,10 @@
         <div style="color:var(--rose-glow); font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 15px;">VALENTINE'S
             WEEK</div>
         <div id="link-rose" class="day-link" onclick="switchTo('rose')">Rose Day</div>
-        <div id="link-propose" class="day-link active" onclick="switchTo('propose')">Propose Day</div>
+        <div id="link-propose" class="day-link" onclick="switchTo('propose')">Propose Day</div>
+        <div id="link-promise" class="day-link" onclick="switchTo('promise')">Promise Day</div>
         <div class="day-link" onclick="showWait('Chocolate Day')">Chocolate Day</div>
         <div class="day-link" onclick="showWait('Teddy Day')">Teddy Day</div>
-        <div class="day-link" onclick="showWait('Promise Day')">Promise Day</div>
         <div class="day-link" onclick="showWait('Hug Day')">Hug Day</div>
         <div class="day-link" onclick="showWait('Kiss Day')">Kiss Day</div>
         <div class="day-link" onclick="showWait('Valentine Day')">Valentine Day</div>
@@ -640,7 +971,8 @@
         <button onclick="closeWait()">I'll wait</button>
     </div>
 
-    <div class="card">
+    <!-- ROSE & PROPOSE CARD -->
+    <div class="card" id="main-card">
         <div class="graphic-container">
             <svg id="rose-svg" class="rose-svg" viewBox="0 0 200 220">
                 <path class="stem" d="M100,210 Q105,170 100,130 Q98,110 100,105" fill="none" stroke="var(--stem-green)"
@@ -695,32 +1027,72 @@
         <button class="btn" onclick="addMoreBloom()">Grow More Love</button>
     </div>
 
+    <!-- PROMISE DAY SCENE -->
+    <div id="promise-scene">
+        <!-- Candle glows -->
+        <div class="candle-glow"
+            style="width:300px;height:300px;background:radial-gradient(circle,#9b3a00,transparent);left:-80px;bottom:0;">
+        </div>
+        <div class="candle-glow"
+            style="width:300px;height:300px;background:radial-gradient(circle,#7b2090,transparent);right:-80px;top:10%;animation-delay:-1.5s;">
+        </div>
+
+        <div class="promise-scroll">
+            <div class="scroll-roller top"></div>
+            <div class="scroll-inner">
+                <div class="scroll-border">
+                    <!-- Corner ornaments bottom -->
+                    <div style="position:absolute;bottom:6px;left:8px;color:rgba(232,201,126,0.5);font-size:0.6rem;">✦
+                    </div>
+                    <div style="position:absolute;bottom:6px;right:8px;color:rgba(232,201,126,0.5);font-size:0.6rem;">✦
+                    </div>
+
+                    <div class="promise-header">
+                        <div class="promise-title">My Promises</div>
+                        <div class="promise-date-ornament">
+                            <span class="line"></span>
+                            <span>Promise Day · February 11</span>
+                            <span class="line"></span>
+                        </div>
+                    </div>
+
+                    <p class="promise-intro" id="promiseIntroText"></p>
+
+                    <div class="promises-label">I promise you, my love</div>
+
+                    <div class="promise-list-fade">
+                        <div class="promise-list-wrap">
+                            <ul class="promise-list" id="promiseList">
+                                <!-- Promises injected by JS -->
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="scroll-roller bottom"></div>
+        </div>
+    </div>
+
+    <!-- WAX SEAL OVERLAY -->
     <div id="messageBox" class="message-box"></div>
     <div id="proposalQuestion" class="proposal-question"></div>
-    <div id="gifContainer" class="gif-container">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzBkNzZhMzk4OGY3ZjU2ZGE4YzU4ZTJhOWY4ZjU5MzE5ZjI5YjhhYSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l0HlNaQ6gWfllcjDO/giphy.gif"
-            alt="celebration">
-    </div>
     <div id="celebrationText" class="celebration-text"></div>
     <div id="moon" class="moon"></div>
 
     <script>
+        // =====================
+        // UTILITY & SHARED
+        // =====================
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
         function closeWait() { document.getElementById('waitModal').classList.remove('show'); }
         function showWait(day) { document.getElementById('modalTitle').innerText = day; document.getElementById('waitModal').classList.add('show'); toggleSidebar(); }
 
         const textElement = document.getElementById('text');
-        let petalInterval;
-        let typewriterTimeout;
-        let starInterval;
-        let shootingStarInterval;
-        let messageSequence;
+        let petalInterval, typewriterTimeout, starInterval, shootingStarInterval;
 
         function typeWriter(txt, i = 0) {
-            if (i === 0) {
-                clearTimeout(typewriterTimeout);
-                textElement.innerHTML = '';
-            }
+            if (i === 0) { clearTimeout(typewriterTimeout); textElement.innerHTML = ''; }
             if (i < txt.length) {
                 textElement.innerHTML += txt.charAt(i);
                 typewriterTimeout = setTimeout(() => typeWriter(txt, i + 1), 60);
@@ -736,14 +1108,10 @@
             petal.style.left = Math.random() * 100 + 'vw';
             petal.style.top = '-20px';
             document.body.appendChild(petal);
-
             petal.animate([
                 { transform: 'translateY(0) rotate(0deg)', opacity: 0.6 },
                 { transform: `translateY(110vh) translateX(${Math.random() * 200 - 100}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
-            ], {
-                duration: Math.random() * 3000 + 4000,
-                easing: 'linear'
-            }).onfinish = () => petal.remove();
+            ], { duration: Math.random() * 3000 + 4000, easing: 'linear' }).onfinish = () => petal.remove();
         }
 
         function createStar() {
@@ -772,21 +1140,14 @@
         function showMessage(text, isProposal = false) {
             const messageBox = document.getElementById('messageBox');
             const proposalBox = document.getElementById('proposalQuestion');
-
             if (isProposal) {
                 proposalBox.innerHTML = '';
                 proposalBox.classList.add('show');
-
-                // Slower typewriter for proposal
                 let i = 0;
                 const typeInterval = setInterval(() => {
-                    if (i < text.length) {
-                        proposalBox.innerHTML += text.charAt(i);
-                        i++;
-                    } else {
+                    if (i < text.length) { proposalBox.innerHTML += text.charAt(i); i++; }
+                    else {
                         clearInterval(typeInterval);
-
-                        // Add button after typing
                         const btn = document.createElement('button');
                         btn.className = 'yes-button';
                         btn.textContent = 'YES! 💍';
@@ -797,27 +1158,16 @@
             } else {
                 messageBox.innerHTML = '';
                 messageBox.classList.add('show');
-
-                // Typewriter effect for message
                 let i = 0;
                 const typeInterval = setInterval(() => {
-                    if (i < text.length) {
-                        messageBox.innerHTML += text.charAt(i);
-                        i++;
-                    } else {
-                        clearInterval(typeInterval);
-                    }
+                    if (i < text.length) { messageBox.innerHTML += text.charAt(i); i++; }
+                    else clearInterval(typeInterval);
                 }, 50);
             }
         }
 
-        function hideMessage() {
-            document.getElementById('messageBox').classList.remove('show');
-        }
-
-        function hideProposal() {
-            document.getElementById('proposalQuestion').classList.remove('show');
-        }
+        function hideMessage() { document.getElementById('messageBox').classList.remove('show'); }
+        function hideProposal() { document.getElementById('proposalQuestion').classList.remove('show'); }
 
         function createFloatingHeart() {
             const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝'];
@@ -829,7 +1179,6 @@
             heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
             heart.style.animationDelay = Math.random() * 2 + 's';
             document.body.appendChild(heart);
-
             setTimeout(() => heart.remove(), 8000);
         }
 
@@ -843,7 +1192,6 @@
             sparkle.style.top = Math.random() * 100 + 'vh';
             sparkle.style.animationDelay = Math.random() * 2 + 's';
             document.body.appendChild(sparkle);
-
             setTimeout(() => sparkle.remove(), 4000);
         }
 
@@ -856,7 +1204,6 @@
             cloud.style.top = Math.random() * 50 + '%';
             cloud.style.animationDuration = (Math.random() * 20 + 30) + 's';
             document.body.appendChild(cloud);
-
             setTimeout(() => cloud.remove(), 50000);
         }
 
@@ -869,51 +1216,33 @@
             confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
             confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
             document.body.appendChild(confetti);
-
             confetti.animate([
                 { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
                 { transform: `translateY(110vh) translateX(${Math.random() * 200 - 100}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
-            ], {
-                duration: Math.random() * 2000 + 2000,
-                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-            }).onfinish = () => confetti.remove();
+            ], { duration: Math.random() * 2000 + 2000, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' }).onfinish = () => confetti.remove();
         }
 
         function celebrate() {
             hideProposal();
             const wrap = document.getElementById('propose-wrap');
             wrap.style.opacity = '0';
-
-            // Create confetti explosion
             const confettiInterval = setInterval(createConfetti, 50);
             setTimeout(() => clearInterval(confettiInterval), 3000);
-
-            // Show GIF first
-            setTimeout(() => {
-                document.getElementById('gifContainer').classList.add('show');
-            }, 300);
-
-            // Show celebration message with slow typewriter below the GIF
             setTimeout(() => {
                 const celebText = document.getElementById('celebrationText');
+                celebText.style.top = '50%';
                 const message = "Thank you for making me\nthe luckiest man ever ❤️";
                 celebText.innerHTML = '';
                 celebText.classList.add('show');
-
                 let i = 0;
                 const typeInterval = setInterval(() => {
                     if (i < message.length) {
-                        if (message.charAt(i) === '\n') {
-                            celebText.innerHTML += '<br>';
-                        } else {
-                            celebText.innerHTML += message.charAt(i);
-                        }
+                        if (message.charAt(i) === '\n') celebText.innerHTML += '<br>';
+                        else celebText.innerHTML += message.charAt(i);
                         i++;
-                    } else {
-                        clearInterval(typeInterval);
-                    }
+                    } else clearInterval(typeInterval);
                 }, 100);
-            }, 800);
+            }, 300);
         }
 
         function startProposeSequence() {
@@ -924,135 +1253,269 @@
                 { text: "You are my best friend, my love, my everything", delay: 10400 },
                 { text: "I can't imagine my life without you", delay: 14200 }
             ];
-
             messages.forEach(msg => {
                 setTimeout(() => {
                     showMessage(msg.text, false);
                     setTimeout(hideMessage, 2800);
                 }, msg.delay);
             });
-
-            // Changed sequence for 1.5s smooth transition to pink
             setTimeout(() => {
-                // Dim stars
                 document.querySelectorAll('.star, .shooting-star').forEach(s => {
-                    s.style.transition = 'opacity 1.5s ease-in-out';
+                    s.style.transition = 'opacity 2s ease-in-out';
                     s.style.opacity = '0.15';
                 });
-
-                // Single 1.5s background transition to pink
                 document.body.classList.remove('night-sky');
                 document.body.classList.add('romantic-pink');
-
-                // Show ring box and move ring forward as background changes
-                const wrap = document.getElementById('propose-wrap');
-                wrap.classList.add('visible');
-                setTimeout(() => wrap.classList.add('open'), 500);
-
-                // Add sparkles and hearts
                 const sparkleInterval = setInterval(createSparkle, 500);
+                setTimeout(() => clearInterval(sparkleInterval), 12000);
                 let heartCount = 0;
                 const heartInterval = setInterval(() => {
                     createFloatingHeart();
                     heartCount++;
                     if (heartCount > 40) clearInterval(heartInterval);
                 }, 400);
-
-                // Delay the proposal text until the 1.5s background change is finished
-                setTimeout(() => {
-                    wrap.classList.add('ring-forward');
-                    setTimeout(() => {
-                        showMessage('Will you be my Valentine? ❤️', true);
-                    }, 500);
-                }, 1500); // Wait for 1.5s transition
-
+                const wrap = document.getElementById('propose-wrap');
+                wrap.classList.add('visible');
+                setTimeout(() => { wrap.classList.add('open'); }, 1500);
             }, 17500);
+            setTimeout(() => {
+                const wrap = document.getElementById('propose-wrap');
+                wrap.classList.add('ring-forward');
+                setTimeout(() => { showMessage('Will you be my Valentine? ❤️', true); }, 1500);
+            }, 19000);
         }
 
+        // =====================
+        // PROMISE DAY
+        // =====================
+
+        const allPromises = [
+            // Opening — commitment
+            "I promise to be by your side forever, through every high and every low, every joy and every storm.",
+            // Emotional care
+            "I promise to love you through every season of life, when things are easy and beautiful, and even when they are hard and uncertain.",
+            // Daily devotion
+            "I promise to take care of you every single day, in the small ways and the big ones, because you deserve to feel cherished and cared for always.",
+            // Feelings
+            "I promise to never hurt your feelings, to always be mindful of your heart.",
+            // Understanding
+            "I promise to always try to understand you, your heart, your needs, your silences, and to act with love and thoughtfulness, always.",
+            // Presence
+            "I promise to always be there for you whenever you need me. Whether it's a moment of joy you want to share, or a moment when all you need is a shoulder to cry on, I am here, always.",
+            // Loyalty
+            "No matter what the situation is, if there's ever a confrontation or a conflict, I promise I will always take your side. It doesn't matter who is on the other side, my place is with you.",
+            // Future
+            "I promise to marry you. One day, I want to stand before the world and make you mine forever.",
+            // Life together
+            "I promise to spend my whole life with you, to grow old with you, to be with you when our hair turns grey and our laughter lines are deep, and to love every single moment of it.",
+            // Never-ending love
+            "I promise to keep loving you like it is the only thing I was made to do in this world. Because honestly, with you, it feels exactly like that.",
+            // Keeping promises
+            "I promise to never go back on a single promise I make to you. My word to you is sacred.",
+            // Marriage life
+            "When we are finally married, I promise to spend quality time with you every single day. I'll give you roses just because. I'll take you on dates regularly, even when we're old. I'll plan surprises for you, keep the romance alive, and do everything that made you choose me in the first place, every single day.",
+            // Happiness
+            "I promise to make you smile every day and to make you the happiest girl in the world. That is my life's most beautiful purpose.",
+            // Unconditional love
+            "I promise to give you so much love every day that you will never, not even for a single moment, feel unloved. And I will do everything in my power to make your wishes come true.",
+            // You are the only one
+            "These words don't even need to be said, because I know you already feel them, but I promise that you will always be the only girl in my life. The only one I want to spend my life with. Even if I were given a million choices a million times over, I would always, always choose you. Because you are my dream girl. The only one I want and will ever want. The only one who makes my heart race. The only one who gives me butterflies and makes me blush. The only one whose face I want to see first in the morning and last before I close my eyes at night. The only girl there is, for me. The only one I love. ❤️",
+        ];
+
+        function initPromiseScroll() {
+            const list = document.getElementById('promiseList');
+            list.innerHTML = '';
+
+            allPromises.forEach((text, i) => {
+                const item = document.createElement('li');
+                item.className = 'promise-item';
+                item.style.animationDelay = (i * 0.07) + 's';
+
+                const num = document.createElement('div');
+                num.className = 'promise-number';
+                num.textContent = (i + 1) + '.';
+
+                const textEl = document.createElement('div');
+                textEl.className = 'promise-text';
+                textEl.textContent = text;
+
+                const mark = document.createElement('div');
+                mark.className = 'heart-mark';
+                mark.textContent = '✦';
+
+                item.appendChild(num);
+                item.appendChild(textEl);
+                item.appendChild(mark);
+                list.appendChild(item);
+            });
+
+            // Animate intro text with typewriter
+            const intro = document.getElementById('promiseIntroText');
+            const introText = "Now that you're mine and I'm yours forever, here are the promises I make to you, with every part of who I am. These are the vows I will keep for you, for us, for our love.";
+            intro.textContent = '';
+            let i = 0;
+            const typeInterval = setInterval(() => {
+                if (i < introText.length) {
+                    intro.textContent += introText.charAt(i);
+                    i++;
+                } else clearInterval(typeInterval);
+            }, 22);
+        }
+
+        function createPromiseMote() {
+            const symbols = ['✦', '♡', '·', '✧', '⋆'];
+            const mote = document.createElement('div');
+            mote.className = 'promise-mote';
+            mote.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            mote.style.left = (20 + Math.random() * 60) + 'vw';
+            mote.style.top = (30 + Math.random() * 40) + 'vh';
+            mote.style.color = `rgba(232,201,126,${0.3 + Math.random() * 0.4})`;
+            mote.style.fontSize = (0.6 + Math.random() * 0.8) + 'rem';
+            mote.style.animationDuration = (6 + Math.random() * 6) + 's';
+            mote.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(mote);
+            setTimeout(() => mote.remove(), 14000);
+        }
+
+        function createPromiseStar() {
+            const star = document.createElement('div');
+            star.className = 'promise-star';
+            const size = Math.random() * 2.5 + 0.8;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            const isGold = Math.random() > 0.5;
+            star.style.background = isGold ? `rgba(232,201,126,0.8)` : 'rgba(200,180,255,0.7)';
+            if (isGold) star.style.boxShadow = '0 0 4px rgba(232,201,126,0.5)';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDelay = Math.random() * 4 + 's';
+            star.style.animationDuration = (3 + Math.random() * 3) + 's';
+            document.body.appendChild(star);
+        }
+
+        // =====================
+        // SWITCH DAYS
+        // =====================
         function switchTo(day) {
             document.querySelectorAll('.day-link').forEach(l => l.classList.remove('active'));
             clearInterval(petalInterval);
             clearInterval(starInterval);
             clearInterval(shootingStarInterval);
-            clearTimeout(messageSequence);
             hideMessage();
             hideProposal();
             document.getElementById('celebrationText').classList.remove('show');
-            document.getElementById('gifContainer').classList.remove('show');
-
-            // Remove all sky elements
-            document.querySelectorAll('.star, .shooting-star, .floating-heart, .sparkle, .cloud').forEach(s => s.remove());
+            document.querySelectorAll('.star, .shooting-star, .floating-heart, .sparkle, .cloud, .promise-star, .promise-mote').forEach(s => s.remove());
 
             const rose = document.getElementById('rose-svg');
             const wrap = document.getElementById('propose-wrap');
-            const card = document.querySelector('.card');
+            const card = document.getElementById('main-card');
             const moon = document.getElementById('moon');
+            const promiseScene = document.getElementById('promise-scene');
+
+            // Hide all scenes first
+            card.classList.add('hidden-card');
+            promiseScene.classList.remove('visible');
+            promiseScene.style.pointerEvents = 'none';
+            rose.classList.add('hidden');
+            wrap.classList.add('hidden');
+            wrap.classList.remove('open', 'ring-forward', 'visible');
+            wrap.style.opacity = '';
+            document.body.style.transition = 'background 1.5s ease';
 
             if (day === 'rose') {
-                document.body.classList.remove('night-sky', 'romantic-pink');
-                document.body.style.transition = 'none';
+                document.body.className = '';
                 document.body.style.background = 'radial-gradient(circle at center, #1a0505 0%, #050505 100%)';
                 moon.style.display = 'none';
                 document.getElementById('link-rose').classList.add('active');
                 card.classList.remove('hidden-card');
                 rose.classList.remove('hidden');
                 wrap.classList.add('hidden');
-                wrap.classList.remove('open', 'ring-forward', 'visible');
-                wrap.style.opacity = '';
                 typeWriter("To the most beautiful girl in the world...");
-            } else {
-                document.body.classList.add('night-sky');
-                document.body.classList.remove('romantic-pink');
-                document.body.style.transition = 'none';
+
+            } else if (day === 'propose') {
+                document.body.className = 'night-sky';
                 moon.style.display = 'block';
                 document.getElementById('link-propose').classList.add('active');
-                rose.classList.add('hidden');
-                wrap.classList.remove('hidden', 'open', 'ring-forward', 'visible');
-                wrap.style.opacity = '';
                 textElement.innerHTML = '';
-                card.classList.add('hidden-card');
-
-                for (let i = 0; i < 250; i++) {
-                    createStar();
-                }
-
-                for (let i = 0; i < 3; i++) {
-                    setTimeout(() => createCloud(), i * 5000);
-                }
-
-                shootingStarInterval = setInterval(() => {
-                    if (Math.random() > 0.7) createShootingStar();
-                }, 2000);
-
+                for (let i = 0; i < 250; i++) createStar();
+                for (let i = 0; i < 3; i++) setTimeout(() => createCloud(), i * 5000);
+                shootingStarInterval = setInterval(() => { if (Math.random() > 0.7) createShootingStar(); }, 2000);
                 startProposeSequence();
+
+            } else if (day === 'promise') {
+                document.body.className = 'promise-sky';
+                moon.style.display = 'block';
+                moon.style.opacity = '0.4';
+                moon.style.width = '60px';
+                moon.style.height = '60px';
+                moon.style.top = '8%';
+                moon.style.right = '10%';
+                moon.style.boxShadow = '0 0 30px rgba(180,140,255,0.5)';
+                document.getElementById('link-promise').classList.add('active');
+
+                // Create gold & purple stars
+                for (let i = 0; i < 180; i++) createPromiseStar();
+
+                // Slow shooting stars
+                shootingStarInterval = setInterval(() => {
+                    if (Math.random() > 0.8) {
+                        const s = document.createElement('div');
+                        s.className = 'shooting-star';
+                        s.style.width = Math.random() * 80 + 60 + 'px';
+                        s.style.background = 'linear-gradient(90deg, rgba(232,201,126,0.8), transparent)';
+                        s.style.left = Math.random() * 100 + 'vw';
+                        s.style.top = Math.random() * 40 + 'vh';
+                        document.body.appendChild(s);
+                        setTimeout(() => s.remove(), 2000);
+                    }
+                }, 3500);
+
+                setTimeout(() => {
+                    promiseScene.classList.add('visible');
+                    promiseScene.style.pointerEvents = 'all';
+                    initPromiseScroll();
+                }, 300);
             }
         }
 
-        window.onload = () => {
-            switchTo('propose');
-        };
-
+        // =====================
+        // BLOOM BUTTON
+        // =====================
         function addMoreBloom() {
             const items = ['💖', '💞', '♾️', '🌹', '🌸', '🪷', '🌻', '🌼', '🌷', '❤️', '✨'];
             for (let j = 0; j < 20; j++) {
                 setTimeout(() => {
                     const emoji = document.createElement('div');
                     emoji.innerHTML = items[Math.floor(Math.random() * items.length)];
-                    emoji.style.position = 'absolute'; emoji.style.left = Math.random() * 100 + 'vw'; emoji.style.top = '105vh';
+                    emoji.style.position = 'absolute';
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.top = '105vh';
                     emoji.style.fontSize = Math.random() * 20 + 20 + 'px';
-                    emoji.animate([{ transform: 'translateY(0)', opacity: 1 }, { transform: `translateY(-110vh) translateX(${Math.random() * 200 - 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }], { duration: 4000 }).onfinish = () => emoji.remove();
+                    emoji.animate([{ transform: 'translateY(0)', opacity: 1 }, { transform: `translateY(-110vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }], { duration: 4000 }).onfinish = () => emoji.remove();
                     document.body.appendChild(emoji);
                 }, j * 100);
             }
         }
 
+        // =====================
+        // MOUSE TRAIL
+        // =====================
         document.addEventListener('mousemove', (e) => {
             const p = document.createElement('div');
-            p.className = 'particle'; p.style.left = e.clientX + 'px'; p.style.top = e.clientY + 'px';
+            p.className = 'particle';
+            p.style.left = e.clientX + 'px';
+            p.style.top = e.clientY + 'px';
             p.style.width = p.style.height = Math.random() * 5 + 2 + 'px';
             document.body.appendChild(p);
             p.animate([{ opacity: 1 }, { opacity: 0 }], 1000).onfinish = () => p.remove();
         });
+
+        // =====================
+        // INIT
+        // =====================
+        window.onload = () => {
+            switchTo('promise');
+        };
     </script>
 </body>
 
