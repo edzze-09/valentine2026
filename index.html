@@ -4,324 +4,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Valentine</title>
+    <title>Valentine's Day - For My Love</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap"
         rel="stylesheet">
     <style>
-        :root {
-            --bg: #0a0101;
-            --glass: rgba(255, 255, 255, 0.05);
-            --rose-red: #d00000;
-            --rose-mid: #ff0a54;
-            --rose-glow: #ff4d6d;
-            --stem-green: #1a3317;
-            --ring-platinum: linear-gradient(45deg, #d3d3d3, #ffffff, #a9a9a9, #ffffff, #808080);
-            --diamond-sparkle: #e0f7fa;
-            --box-velvet: #3a0202;
-            --promise-gold: #e8c97e;
-            --promise-cream: #fff8f0;
-            --promise-purple: #2a1040;
-        }
-
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background: radial-gradient(circle at center, #1a0505 0%, #050505 100%);
-            height: 100vh;
-            margin: 0;
+            background: radial-gradient(ellipse at center, #3d0a1f 0%, #1a0510 50%, #0a0308 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             font-family: 'Georgia', serif;
-            transition: background 2.5s ease-in-out;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        body.night-sky {
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-        }
-
-        body.promise-sky {
-            background: radial-gradient(ellipse at top, #2a1040 0%, #1a0828 50%, #0d0418 100%);
-        }
-
-        .sidebar {
-            position: fixed;
-            left: -250px;
-            top: 0;
-            height: 100%;
-            width: 220px;
-            background: rgba(15, 5, 5, 0.95);
-            backdrop-filter: blur(15px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            padding: 60px 20px;
-            transition: left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-            z-index: 1000;
-        }
-
-        .sidebar.open {
-            left: 0;
-        }
-
-        .menu-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1001;
-            cursor: pointer;
-            color: var(--rose-glow);
-            font-size: 1.5rem;
-            background: var(--glass);
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .day-link {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin: 10px 0;
-            opacity: 0.6;
-            cursor: pointer;
-            transition: 0.3s;
-            padding: 8px;
-        }
-
-        .day-link:hover {
-            color: var(--rose-glow);
-            opacity: 1;
-        }
-
-        .day-link.active {
-            color: var(--rose-glow);
-            opacity: 1;
-            border-left: 2px solid var(--rose-glow);
-        }
-
-        .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: rgba(15, 0, 5, 0.98);
-            border: 1px solid var(--rose-glow);
-            padding: 30px;
-            border-radius: 24px;
-            color: white;
-            z-index: 2000;
-            text-align: center;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 260px;
-        }
-
-        .modal.show {
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .modal button {
-            margin-top: 20px;
-            background: var(--rose-glow);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            color: white;
-            cursor: pointer;
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
         }
 
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 5, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 77, 109, 0.3);
             border-radius: 24px;
-            padding: 20px;
+            padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            z-index: 10;
-            width: 90vw;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 420px;
-            transition: opacity 0.5s, transform 0.5s;
+            box-shadow: 0 0 60px rgba(255, 77, 109, 0.2);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .graphic-container {
-            width: 100%;
-            height: 260px;
+        .card.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .card h2 {
+            font-family: 'Cinzel', serif;
+            color: #ff4d6d;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
+        }
+
+        .card p {
+            font-family: 'Cormorant Garamond', serif;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff0a54, #d00000);
+            border: none;
+            padding: 15px 50px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 10, 84, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 10, 84, 0.5);
+        }
+
+        /* Game Styles */
+        .game-container {
+            background: rgba(10, 5, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 0 60px rgba(255, 77, 109, 0.2);
+        }
+
+        .game-title {
+            font-family: 'Cinzel', serif;
+            color: #ff4d6d;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
+        }
+
+        .game-desc {
+            font-family: 'Cormorant Garamond', serif;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        /* Heart Catch Game */
+        .game-area {
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1200px;
-        }
-
-        .rose-svg {
-            position: absolute;
             width: 100%;
-            height: 100%;
-            transition: 0.8s;
+            height: 350px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 15px;
         }
 
-        .stem {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: growStem 1.5s ease-out forwards;
+        .falling-heart {
+            position: absolute;
+            font-size: 2rem;
+            cursor: pointer;
+            user-select: none;
         }
 
-        .petal {
-            transform: scale(0);
-            transform-origin: 100px 105px;
-            opacity: 0;
-            stroke: rgba(0, 0, 0, 0.15);
-            stroke-width: 0.3;
+        .basket {
+            position: absolute;
+            bottom: 10px;
+            font-size: 3rem;
+            user-select: none;
+            cursor: move;
         }
 
-        .layer-1 {
-            animation: bloom 1s ease-out 1.0s forwards;
+        .score {
+            font-family: 'Cinzel', serif;
+            color: #ff4d6d;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 15px;
         }
 
-        .layer-2 {
-            animation: bloom 1s ease-out 1.3s forwards;
+        /* Memory Game */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        .layer-3 {
-            animation: bloom 1s ease-out 1.6s forwards;
-        }
-
-        .layer-4 {
-            animation: bloom 1s ease-out 1.9s forwards;
-        }
-
-        .layer-5 {
-            animation: bloom 0.8s ease-out 2.2s forwards;
-        }
-
-        .propose-wrap {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 220px;
-            height: 220px;
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, rgba(255, 77, 109, 0.2), rgba(208, 0, 0, 0.2));
+            border: 2px solid rgba(255, 77, 109, 0.3);
+            border-radius: 12px;
             display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            z-index: 20;
-            opacity: 0;
-            transition: opacity 0.8s ease;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            user-select: none;
         }
 
-        .propose-wrap.visible {
-            opacity: 1;
+        .memory-card:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 77, 109, 0.6);
         }
 
-        .box-outer {
-            position: absolute;
-            width: 120px;
-            height: 140px;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 2.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        .memory-card.flipped {
+            background: linear-gradient(135deg, rgba(255, 77, 109, 0.4), rgba(208, 0, 0, 0.4));
         }
 
-        .box-lid {
-            width: 105px;
-            height: 80px;
-            background: linear-gradient(135deg, #6a0202 0%, #2a0101 100%);
-            border-radius: 12px 12px 2px 2px;
-            transform-origin: bottom;
-            transition: transform 1.8s ease-in-out;
-            border: 1px solid #1a0000;
-            z-index: 5;
-        }
-
-        .box-bottom {
-            width: 105px;
-            height: 50px;
-            background: #1a0000;
-            border-radius: 2px 2px 12px 12px;
-            box-shadow: inset 0 0 25px black;
-            z-index: 3;
-            position: relative;
-        }
-
-        .box-glow {
-            position: absolute;
-            top: 75px;
-            width: 85px;
-            height: 35px;
-            background: radial-gradient(circle, #ffffff 0%, transparent 80%);
-            opacity: 0;
-            transition: 1.8s ease-in-out;
-            z-index: 4;
-        }
-
-        .ring-svg {
-            position: absolute;
-            width: 110px;
-            height: 110px;
-            opacity: 0;
-            z-index: 10;
-            transform: translateY(30px) scale(0.4);
-            transition: transform 3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 2s ease;
-        }
-
-        .propose-wrap.open .box-lid {
-            transform: rotateX(-125deg);
-        }
-
-        .propose-wrap.open .box-glow {
-            opacity: 0.3;
-        }
-
-        .propose-wrap.open .ring-svg {
-            opacity: 1;
-            transform: translateY(-20px) scale(0.9);
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
-        }
-
-        .propose-wrap.ring-forward .ring-svg {
-            opacity: 1;
-            transform: translateY(-80px) scale(2.5);
-            filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.8));
-        }
-
-        .propose-wrap.ring-forward .box-outer {
-            opacity: 0;
-            transform: scale(0.2) translateY(80px);
-        }
-
-        .bg-petal {
-            position: absolute;
+        .memory-card.matched {
+            background: linear-gradient(135deg, rgba(77, 255, 109, 0.4), rgba(0, 208, 100, 0.4));
+            border-color: rgba(77, 255, 109, 0.6);
             pointer-events: none;
-            z-index: 1;
-            background: var(--rose-glow);
-            border-radius: 100% 0% 100% 50%;
-            opacity: 0.6;
-            filter: blur(1px);
         }
 
+        /* Quiz */
+        .quiz-question {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 25px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .quiz-option {
+            background: rgba(255, 77, 109, 0.1);
+            border: 2px solid rgba(255, 77, 109, 0.3);
+            border-radius: 50px;
+            padding: 15px 25px;
+            color: white;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 77, 109, 0.2);
+            border-color: rgba(255, 77, 109, 0.5);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: rgba(77, 255, 109, 0.3);
+            border-color: rgba(77, 255, 109, 0.8);
+        }
+
+        .quiz-option.wrong {
+            background: rgba(208, 0, 0, 0.3);
+            border-color: rgba(208, 0, 0, 0.8);
+        }
+
+        /* Letter */
+        .letter-container {
+            background: rgba(10, 5, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 0 80px rgba(255, 77, 109, 0.3);
+        }
+
+        .letter-header {
+            font-family: 'Cinzel', serif;
+            color: #ff4d6d;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
+        }
+
+        .letter-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .letter-footer {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Progress */
+        .progress-dots {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 77, 109, 0.3);
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background: #ff4d6d;
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
+            transform: scale(1.3);
+        }
+
+        /* Stars */
         .star {
-            position: absolute;
+            position: fixed;
             background: white;
             border-radius: 50%;
             pointer-events: none;
             animation: twinkle 3s infinite;
-            transition: opacity 4s ease;
+            z-index: 1;
         }
 
         @keyframes twinkle {
@@ -336,186 +310,33 @@
             }
         }
 
-        body.romantic-pink .star {
-            opacity: 0.15 !important;
-        }
-
-        .shooting-star {
-            position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, white, transparent);
-            animation: shoot 2s linear;
-        }
-
-        @keyframes shoot {
-            from {
-                transform: translateX(0) translateY(0);
-                opacity: 1;
-            }
-
-            to {
-                transform: translateX(-300px) translateY(300px);
-                opacity: 0;
-            }
-        }
-
-        .message-box {
+        .love-symbol {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 1.8rem;
-            text-align: center;
-            z-index: 15;
-            min-width: 300px;
-            max-width: 80vw;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        .message-box.show {
-            opacity: 1;
-        }
-
-        .card.hidden-card {
-            opacity: 0;
-            transform: scale(0.8);
-            pointer-events: none;
-        }
-
-        body.romantic-pink {
-            animation: gradualPink 2s ease-in-out forwards;
-        }
-
-        @keyframes gradualPink {
-            0% {
-                background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-            }
-
-            100% {
-                background: radial-gradient(ellipse at center, #ff9ecd 0%, #ff6b9d 50%, #c9184a 100%);
-            }
-        }
-
-        .floating-heart {
-            position: absolute;
-            font-size: 2rem;
             pointer-events: none;
             z-index: 5;
-            animation: floatUp 6s ease-in infinite;
+            animation: float 8s ease-in-out infinite;
         }
 
-        @keyframes floatUp {
-            0% {
+        @keyframes float {
+
+            0%,
+            100% {
                 transform: translateY(0) rotate(0deg);
-                opacity: 0.8;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.7;
+            }
+
+            90% {
+                opacity: 0.3;
             }
 
             100% {
                 transform: translateY(-100vh) rotate(360deg);
                 opacity: 0;
             }
-        }
-
-        .sparkle {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 4;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            animation: sparkleAnim 2s ease-in-out infinite;
-        }
-
-        @keyframes sparkleAnim {
-
-            0%,
-            100% {
-                opacity: 0;
-                transform: scale(0);
-            }
-
-            50% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .cloud {
-            position: absolute;
-            pointer-events: none;
-            z-index: 3;
-            opacity: 0.3;
-            animation: driftCloud 40s linear infinite;
-        }
-
-        @keyframes driftCloud {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(100vw);
-            }
-        }
-
-        .moon {
-            position: absolute;
-            top: 10%;
-            right: 15%;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #ffffff, #e0e0e0);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
-            z-index: 2;
-            transition: opacity 2s ease;
-        }
-
-        body.romantic-pink .moon {
-            opacity: 0.2;
-        }
-
-        .yes-button {
-            display: block;
-            margin: 30px auto 0;
-            background: linear-gradient(135deg, #ff0a54, #d00000);
-            border: none;
-            padding: 15px 50px;
-            border-radius: 50px;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.3s;
-            box-shadow: 0 10px 30px rgba(255, 10, 84, 0.4);
-        }
-
-        .yes-button:hover {
-            transform: scale(1.1);
-        }
-
-        .proposal-question {
-            position: fixed;
-            top: 65%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 2rem;
-            text-align: center;
-            z-index: 25;
-            opacity: 0;
-            transition: opacity 1s ease;
-            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9);
-            max-width: 90vw;
-        }
-
-        .proposal-question.show {
-            opacity: 1;
         }
 
         .confetti {
@@ -526,592 +347,94 @@
             z-index: 100;
         }
 
-        .celebration-text {
-            position: fixed;
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 2.2rem;
-            text-align: center;
-            z-index: 200;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            max-width: 90vw;
-            line-height: 1.5;
-        }
-
-        .celebration-text.show {
-            opacity: 1;
-        }
-
         .hidden {
-            opacity: 0 !important;
-            pointer-events: none;
-            transform: scale(0.5);
+            display: none !important;
         }
 
-        @keyframes growStem {
-            to {
-                stroke-dashoffset: 0;
-            }
-        }
-
-        @keyframes bloom {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-
-            100% {
-                transform: scale(1.7);
-                opacity: 1;
-            }
-        }
-
-        .typewriter {
-            color: #fff;
-            font-size: 1.2rem;
-            margin-top: 20px;
-            min-height: 2.5em;
-            line-height: 1.4;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .btn {
-            margin-top: 15px;
-            background: transparent;
-            border: 1px solid var(--rose-glow);
-            color: var(--rose-glow);
-            padding: 8px 20px;
-            border-radius: 50px;
+        .skip-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
             cursor: pointer;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-        }
-
-        .particle {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        /* ======================== */
-        /*     PROMISE DAY STYLES   */
-        /* ======================== */
-
-        #promise-scene {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease;
-            padding: 30px 10px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        #promise-scene.visible {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .promise-scroll {
-            width: 88vw;
-            max-width: 480px;
-            max-height: 92vh;
-            background: linear-gradient(160deg, #1e0a38 0%, #130524 60%, #0d0318 100%);
-            border: 1px solid rgba(232, 201, 126, 0.25);
-            border-radius: 4px 4px 8px 8px;
-            position: relative;
-            box-shadow:
-                0 0 80px rgba(180, 80, 220, 0.12),
-                0 0 30px rgba(232, 201, 126, 0.08),
-                0 30px 60px rgba(0, 0, 0, 0.7),
-                inset 0 0 60px rgba(0, 0, 0, 0.4);
-            overflow: visible;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Scroll top roller */
-        .scroll-roller {
-            position: absolute;
-            left: -6px;
-            right: -6px;
-            height: 22px;
-            background: linear-gradient(180deg, #2e1a08 0%, #5c3b12 30%, #c8962e 50%, #5c3b12 70%, #2e1a08 100%);
-            border-radius: 11px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 220, 100, 0.3);
-            z-index: 5;
-        }
-
-        .scroll-roller.top {
-            top: -11px;
-        }
-
-        .scroll-roller.bottom {
-            bottom: -11px;
-        }
-
-        /* Gold trim lines */
-        .scroll-roller::before,
-        .scroll-roller::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #ffe066, #b8860b);
-            box-shadow: 0 0 6px rgba(255, 200, 50, 0.6);
-        }
-
-        .scroll-roller::before {
-            left: 8px;
-        }
-
-        .scroll-roller::after {
-            right: 8px;
-        }
-
-        .scroll-inner {
-            padding: 22px 22px 28px;
-        }
-
-        /* Decorative border inside scroll */
-        .scroll-border {
-            border: 1px solid rgba(232, 201, 126, 0.15);
-            border-radius: 2px;
-            padding: 18px 14px 22px;
-            position: relative;
-        }
-
-        /* Corner ornaments */
-        .scroll-border::before,
-        .scroll-border::after {
-            content: '✦';
-            position: absolute;
-            color: rgba(232, 201, 126, 0.5);
-            font-size: 0.6rem;
-        }
-
-        .scroll-border::before {
-            top: 6px;
-            left: 8px;
-        }
-
-        .scroll-border::after {
-            top: 6px;
-            right: 8px;
-        }
-
-        .promise-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.35rem;
-            color: var(--promise-gold);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(232, 201, 126, 0.4);
-            margin: 0 0 4px;
-        }
-
-        .promise-date-ornament {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 8px 0;
-            color: rgba(232, 201, 126, 0.35);
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-        }
-
-        .promise-date-ornament .line {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(232, 201, 126, 0.3), transparent);
-        }
-
-        .promise-intro em {
-            color: rgba(232, 201, 126, 0.85);
-            font-style: normal;
-        }
-
-
-        .promise-header {
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .promises-label {
-            font-family: 'Cinzel', serif;
-            font-size: 0.6rem;
-            letter-spacing: 3px;
-            color: rgba(232, 201, 126, 0.4);
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .promise-intro {
+            transition: all 0.3s;
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.95rem;
-            font-style: italic;
-            color: rgba(255, 220, 200, 0.7);
-            text-align: center;
-            line-height: 1.55;
-            margin-bottom: 14px;
-            letter-spacing: 0.2px;
         }
 
-        /* Floating promise particles */
-        .promise-mote {
-            position: fixed;
-            pointer-events: none;
-            z-index: 3;
-            animation: promiseDrift 8s ease-in-out infinite;
-        }
-
-        @keyframes promiseDrift {
-
-            0%,
-            100% {
-                transform: translateY(0) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-
-            15% {
-                opacity: 0.7;
-            }
-
-            85% {
-                opacity: 0.3;
-            }
-
-            100% {
-                transform: translateY(-30vh) translateX(20px) rotate(180deg);
-                opacity: 0;
-            }
-        }
-
-        /* Candle ambiance */
-        .candle-glow {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            border-radius: 50%;
-            filter: blur(60px);
-            animation: candleFlicker 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes candleFlicker {
-            0% {
-                opacity: 0.08;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.14;
-                transform: scale(1.05);
-            }
-
-            100% {
-                opacity: 0.09;
-                transform: scale(0.97);
-            }
-        }
-
-        /* Promise star (different from regular star — gold-tinted) */
-        .promise-star {
-            position: absolute;
-            pointer-events: none;
-            border-radius: 50%;
-            animation: promiseTwinkle 4s infinite;
-        }
-
-        @keyframes promiseTwinkle {
-
-            0%,
-            100% {
-                opacity: 0.1;
-            }
-
-            50% {
-                opacity: 0.7;
-            }
-        }
-
-        .promise-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        /* Scrollable promise list */
-        .promise-list-wrap {
-            max-height: calc(90vh - 240px);
-            min-height: 100px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .promise-list-wrap::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Fade hint at bottom of list */
-        .promise-list-fade {
-            position: relative;
-        }
-
-        .promise-list-fade::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(to bottom, transparent, rgba(19, 5, 36, 0.95));
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .promise-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 14px;
-            position: relative;
-            animation: promiseReveal 0.6s ease both;
-        }
-
-        @keyframes promiseReveal {
-            from {
-                opacity: 0;
-                transform: translateX(-8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .promise-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.8rem;
-            font-style: italic;
-            color: rgba(232, 201, 126, 0.45);
-            min-width: 18px;
-            padding-top: 2px;
-            text-align: right;
-            line-height: 1.5;
-        }
-
-        .promise-text {
-            flex: 1;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.98rem;
-            color: rgba(255, 235, 215, 0.88);
-            line-height: 1.65;
-            padding: 0 0 10px 0;
-            border-bottom: 1px solid rgba(232, 201, 126, 0.1);
-            letter-spacing: 0.2px;
-        }
-
-        .promise-item:last-child .promise-text {
-            border-bottom: none;
-        }
-
-        .promise-item .heart-mark {
-            min-width: 14px;
-            font-size: 0.65rem;
-            padding-top: 4px;
-            color: rgba(232, 201, 126, 0.5);
-            line-height: 1.5;
+        .skip-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 
 <body>
+    <div class="container" id="mainContainer"></div>
 
-    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
-    <div class="sidebar" id="sidebar">
-        <div style="color:var(--rose-glow); font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 15px;">VALENTINE'S
-            WEEK</div>
-        <div id="link-rose" class="day-link" onclick="switchTo('rose')">Rose Day</div>
-        <div id="link-propose" class="day-link" onclick="switchTo('propose')">Propose Day</div>
-        <div id="link-promise" class="day-link" onclick="switchTo('promise')">Promise Day</div>
-        <div class="day-link" onclick="showWait('Chocolate Day')">Chocolate Day</div>
-        <div class="day-link" onclick="showWait('Teddy Day')">Teddy Day</div>
-        <div class="day-link" onclick="showWait('Hug Day')">Hug Day</div>
-        <div class="day-link" onclick="showWait('Kiss Day')">Kiss Day</div>
-        <div class="day-link" onclick="showWait('Valentine Day')">Valentine Day</div>
+    <div class="progress-dots" id="progressDots">
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
     </div>
-
-    <div id="waitModal" class="modal">
-        <h3 id="modalTitle" style="color:var(--rose-glow)"></h3>
-        <p>Wait for the day to come to see this, my love. ❤️</p>
-        <button onclick="closeWait()">I'll wait</button>
-    </div>
-
-    <!-- ROSE & PROPOSE CARD -->
-    <div class="card" id="main-card">
-        <div class="graphic-container">
-            <svg id="rose-svg" class="rose-svg" viewBox="0 0 200 220">
-                <path class="stem" d="M100,210 Q105,170 100,130 Q98,110 100,105" fill="none" stroke="var(--stem-green)"
-                    stroke-width="4" stroke-linecap="round" />
-                <path class="petal layer-1" d="M100,180 Q130,170 120,150 Q110,145 100,180" fill="var(--stem-green)" />
-                <path class="petal layer-1" d="M100,170 Q70,160 80,140 Q90,135 100,170" fill="var(--stem-green)" />
-                <path class="petal layer-1" d="M100,105 C40,20 0,70 100,105 C200,70 160,20 100,105"
-                    fill="url(#grad1)" />
-                <path class="petal layer-2" d="M100,105 C50,10 10,90 100,105" fill="url(#grad1)" />
-                <path class="petal layer-2" d="M100,105 C150,10 190,90 100,105" fill="url(#grad1)" />
-                <path class="petal layer-3" d="M100,105 C60,40 20,110 100,105" fill="url(#grad2)" />
-                <path class="petal layer-3" d="M100,105 C140,40 180,110 100,105" fill="url(#grad2)" />
-                <path class="petal layer-4" d="M100,105 C80,45 50,95 100,105" fill="var(--rose-mid)" />
-                <path class="petal layer-5" d="M100,105 C92,75 108,75 100,105" fill="#fff" opacity="0.3" />
-                <defs>
-                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:var(--rose-glow)" />
-                        <stop offset="100%" style="stop-color:var(--rose-red)" />
-                    </linearGradient>
-                    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:var(--rose-mid)" />
-                        <stop offset="100%" style="stop-color:var(--rose-red)" />
-                    </linearGradient>
-                    <linearGradient id="plat-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#d3d3d3" />
-                        <stop offset="25%" style="stop-color:#ffffff" />
-                        <stop offset="50%" style="stop-color:#a9a9a9" />
-                        <stop offset="75%" style="stop-color:#ffffff" />
-                        <stop offset="100%" style="stop-color:#808080" />
-                    </linearGradient>
-                </defs>
-            </svg>
-
-            <div id="propose-wrap" class="propose-wrap hidden">
-                <div class="box-outer">
-                    <div class="box-lid"></div>
-                    <div class="box-glow"></div>
-                    <div class="box-bottom"></div>
-                </div>
-                <svg class="ring-svg" viewBox="0 0 100 100">
-                    <circle cx="50" cy="65" r="24" stroke="url(#plat-grad)" stroke-width="5" fill="none" />
-                    <path d="M50 22 L65 38 L50 54 L35 38 Z" fill="#fff" />
-                    <path d="M50 22 L58 38 L50 54 L42 38 Z" fill="var(--diamond-sparkle)" opacity="0.8" />
-                    <circle cx="50" cy="38" r="5" fill="white" opacity="0.4">
-                        <animate attributeName="opacity" values="0.3;0.9;0.3" dur="1.5s" repeatCount="indefinite" />
-                    </circle>
-                </svg>
-            </div>
-        </div>
-
-        <div class="typewriter" id="text"></div>
-        <button class="btn" onclick="addMoreBloom()">Grow More Love</button>
-    </div>
-
-    <!-- PROMISE DAY SCENE -->
-    <div id="promise-scene">
-        <!-- Candle glows -->
-        <div class="candle-glow"
-            style="width:300px;height:300px;background:radial-gradient(circle,#9b3a00,transparent);left:-80px;bottom:0;">
-        </div>
-        <div class="candle-glow"
-            style="width:300px;height:300px;background:radial-gradient(circle,#7b2090,transparent);right:-80px;top:10%;animation-delay:-1.5s;">
-        </div>
-
-        <div class="promise-scroll">
-            <div class="scroll-roller top"></div>
-            <div class="scroll-inner">
-                <div class="scroll-border">
-                    <!-- Corner ornaments bottom -->
-                    <div style="position:absolute;bottom:6px;left:8px;color:rgba(232,201,126,0.5);font-size:0.6rem;">✦
-                    </div>
-                    <div style="position:absolute;bottom:6px;right:8px;color:rgba(232,201,126,0.5);font-size:0.6rem;">✦
-                    </div>
-
-                    <div class="promise-header">
-                        <div class="promise-title">My Promises</div>
-                        <div class="promise-date-ornament">
-                            <span class="line"></span>
-                            <span>Promise Day · February 11</span>
-                            <span class="line"></span>
-                        </div>
-                    </div>
-
-                    <p class="promise-intro" id="promiseIntroText"></p>
-
-                    <div class="promises-label">I promise you, my love</div>
-
-                    <div class="promise-list-fade">
-                        <div class="promise-list-wrap">
-                            <ul class="promise-list" id="promiseList">
-                                <!-- Promises injected by JS -->
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="scroll-roller bottom"></div>
-        </div>
-    </div>
-
-    <!-- WAX SEAL OVERLAY -->
-    <div id="messageBox" class="message-box"></div>
-    <div id="proposalQuestion" class="proposal-question"></div>
-    <div id="celebrationText" class="celebration-text"></div>
-    <div id="moon" class="moon"></div>
 
     <script>
-        // =====================
-        // UTILITY & SHARED
-        // =====================
-        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-        function closeWait() { document.getElementById('waitModal').classList.remove('show'); }
-        function showWait(day) { document.getElementById('modalTitle').innerText = day; document.getElementById('waitModal').classList.add('show'); toggleSidebar(); }
+        // ========================================
+        // GLOBAL STATE
+        // ========================================
+        let step = 0;
+        let heartScore = 0;
+        let heartInterval = null;
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let currentQuiz = 0;
 
-        const textElement = document.getElementById('text');
-        let petalInterval, typewriterTimeout, starInterval, shootingStarInterval;
-
-        function typeWriter(txt, i = 0) {
-            if (i === 0) { clearTimeout(typewriterTimeout); textElement.innerHTML = ''; }
-            if (i < txt.length) {
-                textElement.innerHTML += txt.charAt(i);
-                typewriterTimeout = setTimeout(() => typeWriter(txt, i + 1), 60);
+        const messages = [
+            {
+                title: "My Dearest Love",
+                text: "Today marks a celebration of us — of every laugh, every dream, every moment that brought us closer. Before I share my heart with you in the letter I've written, I want to make this day special with a few moments just for us. ❤️"
+            },
+            {
+                title: "Let's Make This Fun!",
+                text: "I've prepared some little games and surprises for you. Because you deserve joy, laughter, and all the love in the world. Let's play together, my forever Valentine."
             }
-        }
+        ];
 
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.className = 'bg-petal';
-            const size = Math.random() * 10 + 5;
-            petal.style.width = size + 'px';
-            petal.style.height = size + 'px';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.top = '-20px';
-            document.body.appendChild(petal);
-            petal.animate([
-                { transform: 'translateY(0) rotate(0deg)', opacity: 0.6 },
-                { transform: `translateY(110vh) translateX(${Math.random() * 200 - 100}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
-            ], { duration: Math.random() * 3000 + 4000, easing: 'linear' }).onfinish = () => petal.remove();
+        const quizData = [
+            {
+                q: "What do I treasure most about our relationship?",
+                opts: ["Every single moment with you", "The way you make me laugh", "How you understand me", "All of the above ❤️"],
+                ans: 3
+            },
+            {
+                q: "What's my promise to you for our future?",
+                opts: ["To love you forever", "To make you smile every day", "To be your best friend and partner", "All of these and more ✨"],
+                ans: 3
+            },
+            {
+                q: "How do you make me feel?",
+                opts: ["Like the luckiest person alive", "Complete and whole", "Endlessly happy", "All of these, always 💕"],
+                ans: 3
+            }
+        ];
+
+        const memorySymbols = ['💕', '💖', '💝', '💗', '💓', '💞', '❤️', '💘'];
+
+        // ========================================
+        // UTILITIES
+        // ========================================
+        function updateProgress() {
+            document.querySelectorAll('.progress-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === step);
+            });
         }
 
         function createStar() {
@@ -1120,91 +443,26 @@
             const size = Math.random() * 3 + 1;
             star.style.width = size + 'px';
             star.style.height = size + 'px';
+            const isPink = Math.random() > 0.6;
+            star.style.background = isPink ? 'rgba(255,182,193,0.8)' : 'rgba(255,255,255,0.8)';
             star.style.left = Math.random() * 100 + 'vw';
             star.style.top = Math.random() * 100 + 'vh';
             star.style.animationDelay = Math.random() * 3 + 's';
             document.body.appendChild(star);
-            return star;
         }
 
-        function createShootingStar() {
-            const star = document.createElement('div');
-            star.className = 'shooting-star';
-            star.style.width = Math.random() * 100 + 80 + 'px';
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.top = Math.random() * 50 + 'vh';
-            document.body.appendChild(star);
-            setTimeout(() => star.remove(), 2000);
-        }
-
-        function showMessage(text, isProposal = false) {
-            const messageBox = document.getElementById('messageBox');
-            const proposalBox = document.getElementById('proposalQuestion');
-            if (isProposal) {
-                proposalBox.innerHTML = '';
-                proposalBox.classList.add('show');
-                let i = 0;
-                const typeInterval = setInterval(() => {
-                    if (i < text.length) { proposalBox.innerHTML += text.charAt(i); i++; }
-                    else {
-                        clearInterval(typeInterval);
-                        const btn = document.createElement('button');
-                        btn.className = 'yes-button';
-                        btn.textContent = 'YES! 💍';
-                        btn.onclick = celebrate;
-                        proposalBox.appendChild(btn);
-                    }
-                }, 80);
-            } else {
-                messageBox.innerHTML = '';
-                messageBox.classList.add('show');
-                let i = 0;
-                const typeInterval = setInterval(() => {
-                    if (i < text.length) { messageBox.innerHTML += text.charAt(i); i++; }
-                    else clearInterval(typeInterval);
-                }, 50);
-            }
-        }
-
-        function hideMessage() { document.getElementById('messageBox').classList.remove('show'); }
-        function hideProposal() { document.getElementById('proposalQuestion').classList.remove('show'); }
-
-        function createFloatingHeart() {
-            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝'];
-            const heart = document.createElement('div');
-            heart.className = 'floating-heart';
-            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.bottom = '-50px';
-            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            heart.style.animationDelay = Math.random() * 2 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 8000);
-        }
-
-        function createSparkle() {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            const size = Math.random() * 4 + 2;
-            sparkle.style.width = size + 'px';
-            sparkle.style.height = size + 'px';
-            sparkle.style.left = Math.random() * 100 + 'vw';
-            sparkle.style.top = Math.random() * 100 + 'vh';
-            sparkle.style.animationDelay = Math.random() * 2 + 's';
-            document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 4000);
-        }
-
-        function createCloud() {
-            const cloud = document.createElement('div');
-            cloud.className = 'cloud';
-            cloud.innerHTML = '☁️';
-            cloud.style.fontSize = (Math.random() * 40 + 30) + 'px';
-            cloud.style.left = '-100px';
-            cloud.style.top = Math.random() * 50 + '%';
-            cloud.style.animationDuration = (Math.random() * 20 + 30) + 's';
-            document.body.appendChild(cloud);
-            setTimeout(() => cloud.remove(), 50000);
+        function createLoveSymbol() {
+            const symbols = ['💕', '💖', '💝', '✨', '⭐', '🌟', '💫'];
+            const symbol = document.createElement('div');
+            symbol.className = 'love-symbol';
+            symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            symbol.style.left = Math.random() * 100 + 'vw';
+            symbol.style.bottom = '-50px';
+            symbol.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+            symbol.style.animationDuration = (6 + Math.random() * 4) + 's';
+            symbol.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(symbol);
+            setTimeout(() => symbol.remove(), 12000);
         }
 
         function createConfetti() {
@@ -1214,310 +472,351 @@
             confetti.style.left = Math.random() * 100 + 'vw';
             confetti.style.top = '-10px';
             confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
             document.body.appendChild(confetti);
             confetti.animate([
-                { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
                 { transform: `translateY(110vh) translateX(${Math.random() * 200 - 100}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
-            ], { duration: Math.random() * 2000 + 2000, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' }).onfinish = () => confetti.remove();
+            ], { duration: Math.random() * 2000 + 2000 }).onfinish = () => confetti.remove();
         }
 
-        function celebrate() {
-            hideProposal();
-            const wrap = document.getElementById('propose-wrap');
-            wrap.style.opacity = '0';
-            const confettiInterval = setInterval(createConfetti, 50);
-            setTimeout(() => clearInterval(confettiInterval), 3000);
+        // ========================================
+        // NAVIGATION - GLOBAL FUNCTION
+        // ========================================
+        function goNext() {
+            step++;
+            updateProgress();
+
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = '';
+
             setTimeout(() => {
-                const celebText = document.getElementById('celebrationText');
-                celebText.style.top = '50%';
-                const message = "Thank you for making me\nthe luckiest man ever ❤️";
-                celebText.innerHTML = '';
-                celebText.classList.add('show');
-                let i = 0;
-                const typeInterval = setInterval(() => {
-                    if (i < message.length) {
-                        if (message.charAt(i) === '\n') celebText.innerHTML += '<br>';
-                        else celebText.innerHTML += message.charAt(i);
-                        i++;
-                    } else clearInterval(typeInterval);
-                }, 100);
+                if (step === 1) showMessage(1);
+                else if (step === 2) showHeartGame();
+                else if (step === 3) showMemoryGame();
+                else if (step === 4) showQuiz();
+                else if (step === 5) {
+                    document.getElementById('progressDots').classList.add('hidden');
+                    showLetter();
+                }
             }, 300);
         }
 
-        function startProposeSequence() {
-            const messages = [
-                { text: "From the moment I met you...", delay: 500 },
-                { text: "My world became more beautiful", delay: 3800 },
-                { text: "Every day with you is a gift", delay: 7100 },
-                { text: "You are my best friend, my love, my everything", delay: 10400 },
-                { text: "I can't imagine my life without you", delay: 14200 }
-            ];
-            messages.forEach(msg => {
-                setTimeout(() => {
-                    showMessage(msg.text, false);
-                    setTimeout(hideMessage, 2800);
-                }, msg.delay);
-            });
-            setTimeout(() => {
-                document.querySelectorAll('.star, .shooting-star').forEach(s => {
-                    s.style.transition = 'opacity 2s ease-in-out';
-                    s.style.opacity = '0.15';
-                });
-                document.body.classList.remove('night-sky');
-                document.body.classList.add('romantic-pink');
-                const sparkleInterval = setInterval(createSparkle, 500);
-                setTimeout(() => clearInterval(sparkleInterval), 12000);
-                let heartCount = 0;
-                const heartInterval = setInterval(() => {
-                    createFloatingHeart();
-                    heartCount++;
-                    if (heartCount > 40) clearInterval(heartInterval);
-                }, 400);
-                const wrap = document.getElementById('propose-wrap');
-                wrap.classList.add('visible');
-                setTimeout(() => { wrap.classList.add('open'); }, 1500);
-            }, 17500);
-            setTimeout(() => {
-                const wrap = document.getElementById('propose-wrap');
-                wrap.classList.add('ring-forward');
-                setTimeout(() => { showMessage('Will you be my Valentine? ❤️', true); }, 1500);
-            }, 19000);
+        // ========================================
+        // SCREENS
+        // ========================================
+        function showMessage(index) {
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = `
+                <div class="card">
+                    <h2>${messages[index].title}</h2>
+                    <p>${messages[index].text}</p>
+                    <button class="btn" onclick="goNext()">
+                        ${index === 0 ? "Let's Begin! 💕" : "Let's Play! 🎮"}
+                    </button>
+                </div>
+            `;
+            setTimeout(() => container.querySelector('.card').classList.add('show'), 100);
         }
 
-        // =====================
-        // PROMISE DAY
-        // =====================
+        function showComplete(msg) {
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = `
+                <div class="card">
+                    <h2>${msg}</h2>
+                    <p>${step === 4 ? "Now, my love, it's time for the most special part of this day..." : "That was so much fun! Ready for more?"}</p>
+                    <button class="btn" onclick="goNext()">
+                        ${step === 4 ? "Read My Letter 💌" : "Continue 💕"}
+                    </button>
+                </div>
+            `;
+            setTimeout(() => container.querySelector('.card').classList.add('show'), 100);
+        }
 
-        const allPromises = [
-            // Opening — commitment
-            "I promise to be by your side forever, through every high and every low, every joy and every storm.",
-            // Emotional care
-            "I promise to love you through every season of life, when things are easy and beautiful, and even when they are hard and uncertain.",
-            // Daily devotion
-            "I promise to take care of you every single day, in the small ways and the big ones, because you deserve to feel cherished and cared for always.",
-            // Feelings
-            "I promise to never hurt your feelings, to always be mindful of your heart.",
-            // Understanding
-            "I promise to always try to understand you, your heart, your needs, your silences, and to act with love and thoughtfulness, always.",
-            // Presence
-            "I promise to always be there for you whenever you need me. Whether it's a moment of joy you want to share, or a moment when all you need is a shoulder to cry on, I am here, always.",
-            // Loyalty
-            "No matter what the situation is, if there's ever a confrontation or a conflict, I promise I will always take your side. It doesn't matter who is on the other side, my place is with you.",
-            // Future
-            "I promise to marry you. One day, I want to stand before the world and make you mine forever.",
-            // Life together
-            "I promise to spend my whole life with you, to grow old with you, to be with you when our hair turns grey and our laughter lines are deep, and to love every single moment of it.",
-            // Never-ending love
-            "I promise to keep loving you like it is the only thing I was made to do in this world. Because honestly, with you, it feels exactly like that.",
-            // Keeping promises
-            "I promise to never go back on a single promise I make to you. My word to you is sacred.",
-            // Marriage life
-            "When we are finally married, I promise to spend quality time with you every single day. I'll give you roses just because. I'll take you on dates regularly, even when we're old. I'll plan surprises for you, keep the romance alive, and do everything that made you choose me in the first place, every single day.",
-            // Happiness
-            "I promise to make you smile every day and to make you the happiest girl in the world. That is my life's most beautiful purpose.",
-            // Unconditional love
-            "I promise to give you so much love every day that you will never, not even for a single moment, feel unloved. And I will do everything in my power to make your wishes come true.",
-            // You are the only one
-            "These words don't even need to be said, because I know you already feel them, but I promise that you will always be the only girl in my life. The only one I want to spend my life with. Even if I were given a million choices a million times over, I would always, always choose you. Because you are my dream girl. The only one I want and will ever want. The only one who makes my heart race. The only one who gives me butterflies and makes me blush. The only one whose face I want to see first in the morning and last before I close my eyes at night. The only girl there is, for me. The only one I love. ❤️",
-        ];
+        // ========================================
+        // HEART CATCH GAME
+        // ========================================
+        function showHeartGame() {
+            heartScore = 0;
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = `
+                <div class="game-container card show" style="position: relative;">
+                    <button class="skip-btn" onclick="clearInterval(heartInterval); showComplete('Amazing! You caught all my love! 💕')">skip</button>
+                    <div class="game-title">Catch My Love! ❤️</div>
+                    <div class="game-desc">Move the basket to catch falling hearts. Catch 15 to continue!</div>
+                    <div class="score" id="heartScore">Hearts: 0/15</div>
+                    <div class="game-area" id="gameArea">
+                        <div class="basket" id="basket" style="left: 50%">🧺</div>
+                    </div>
+                </div>
+            `;
 
-        function initPromiseScroll() {
-            const list = document.getElementById('promiseList');
-            list.innerHTML = '';
+            const gameArea = document.getElementById('gameArea');
+            const basket = document.getElementById('basket');
 
-            allPromises.forEach((text, i) => {
-                const item = document.createElement('li');
-                item.className = 'promise-item';
-                item.style.animationDelay = (i * 0.07) + 's';
-
-                const num = document.createElement('div');
-                num.className = 'promise-number';
-                num.textContent = (i + 1) + '.';
-
-                const textEl = document.createElement('div');
-                textEl.className = 'promise-text';
-                textEl.textContent = text;
-
-                const mark = document.createElement('div');
-                mark.className = 'heart-mark';
-                mark.textContent = '✦';
-
-                item.appendChild(num);
-                item.appendChild(textEl);
-                item.appendChild(mark);
-                list.appendChild(item);
+            gameArea.addEventListener('mousemove', (e) => {
+                const rect = gameArea.getBoundingClientRect();
+                let x = ((e.clientX - rect.left) / rect.width) * 100;
+                x = Math.max(10, Math.min(90, x));
+                basket.style.left = x + '%';
             });
 
-            // Animate intro text with typewriter
-            const intro = document.getElementById('promiseIntroText');
-            const introText = "Now that you're mine and I'm yours forever, here are the promises I make to you, with every part of who I am. These are the vows I will keep for you, for us, for our love.";
-            intro.textContent = '';
-            let i = 0;
-            const typeInterval = setInterval(() => {
-                if (i < introText.length) {
-                    intro.textContent += introText.charAt(i);
-                    i++;
-                } else clearInterval(typeInterval);
-            }, 22);
+            gameArea.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                const rect = gameArea.getBoundingClientRect();
+                const touch = e.touches[0];
+                let x = ((touch.clientX - rect.left) / rect.width) * 100;
+                x = Math.max(10, Math.min(90, x));
+                basket.style.left = x + '%';
+            });
+
+            heartInterval = setInterval(spawnHeart, 800);
         }
 
-        function createPromiseMote() {
-            const symbols = ['✦', '♡', '·', '✧', '⋆'];
-            const mote = document.createElement('div');
-            mote.className = 'promise-mote';
-            mote.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            mote.style.left = (20 + Math.random() * 60) + 'vw';
-            mote.style.top = (30 + Math.random() * 40) + 'vh';
-            mote.style.color = `rgba(232,201,126,${0.3 + Math.random() * 0.4})`;
-            mote.style.fontSize = (0.6 + Math.random() * 0.8) + 'rem';
-            mote.style.animationDuration = (6 + Math.random() * 6) + 's';
-            mote.style.animationDelay = Math.random() * 2 + 's';
-            document.body.appendChild(mote);
-            setTimeout(() => mote.remove(), 14000);
-        }
+        function spawnHeart() {
+            const gameArea = document.getElementById('gameArea');
+            if (!gameArea) {
+                clearInterval(heartInterval);
+                return;
+            }
 
-        function createPromiseStar() {
-            const star = document.createElement('div');
-            star.className = 'promise-star';
-            const size = Math.random() * 2.5 + 0.8;
-            star.style.width = size + 'px';
-            star.style.height = size + 'px';
-            const isGold = Math.random() > 0.5;
-            star.style.background = isGold ? `rgba(232,201,126,0.8)` : 'rgba(200,180,255,0.7)';
-            if (isGold) star.style.boxShadow = '0 0 4px rgba(232,201,126,0.5)';
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.top = Math.random() * 100 + 'vh';
-            star.style.animationDelay = Math.random() * 4 + 's';
-            star.style.animationDuration = (3 + Math.random() * 3) + 's';
-            document.body.appendChild(star);
-        }
+            const heart = document.createElement('div');
+            heart.className = 'falling-heart';
+            const hearts = ['❤️', '💕', '💖', '💗', '💝'];
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = (Math.random() * 90 + 5) + '%';
 
-        // =====================
-        // SWITCH DAYS
-        // =====================
-        function switchTo(day) {
-            document.querySelectorAll('.day-link').forEach(l => l.classList.remove('active'));
-            clearInterval(petalInterval);
-            clearInterval(starInterval);
-            clearInterval(shootingStarInterval);
-            hideMessage();
-            hideProposal();
-            document.getElementById('celebrationText').classList.remove('show');
-            document.querySelectorAll('.star, .shooting-star, .floating-heart, .sparkle, .cloud, .promise-star, .promise-mote').forEach(s => s.remove());
+            const duration = 2 + Math.random() * 2;
+            heart.style.animation = `fall ${duration}s linear`;
 
-            const rose = document.getElementById('rose-svg');
-            const wrap = document.getElementById('propose-wrap');
-            const card = document.getElementById('main-card');
-            const moon = document.getElementById('moon');
-            const promiseScene = document.getElementById('promise-scene');
+            gameArea.appendChild(heart);
 
-            // Hide all scenes first
-            card.classList.add('hidden-card');
-            promiseScene.classList.remove('visible');
-            promiseScene.style.pointerEvents = 'none';
-            rose.classList.add('hidden');
-            wrap.classList.add('hidden');
-            wrap.classList.remove('open', 'ring-forward', 'visible');
-            wrap.style.opacity = '';
-            document.body.style.transition = 'background 1.5s ease';
+            const checkCollision = setInterval(() => {
+                const heartRect = heart.getBoundingClientRect();
+                const basketRect = document.getElementById('basket').getBoundingClientRect();
 
-            if (day === 'rose') {
-                document.body.className = '';
-                document.body.style.background = 'radial-gradient(circle at center, #1a0505 0%, #050505 100%)';
-                moon.style.display = 'none';
-                document.getElementById('link-rose').classList.add('active');
-                card.classList.remove('hidden-card');
-                rose.classList.remove('hidden');
-                wrap.classList.add('hidden');
-                typeWriter("To the most beautiful girl in the world...");
+                if (heartRect.bottom >= basketRect.top &&
+                    heartRect.top <= basketRect.bottom &&
+                    heartRect.right >= basketRect.left &&
+                    heartRect.left <= basketRect.right) {
 
-            } else if (day === 'propose') {
-                document.body.className = 'night-sky';
-                moon.style.display = 'block';
-                document.getElementById('link-propose').classList.add('active');
-                textElement.innerHTML = '';
-                for (let i = 0; i < 250; i++) createStar();
-                for (let i = 0; i < 3; i++) setTimeout(() => createCloud(), i * 5000);
-                shootingStarInterval = setInterval(() => { if (Math.random() > 0.7) createShootingStar(); }, 2000);
-                startProposeSequence();
+                    clearInterval(checkCollision);
+                    heart.remove();
+                    heartScore++;
+                    document.getElementById('heartScore').textContent = `Hearts: ${heartScore}/15`;
+                    createConfetti();
 
-            } else if (day === 'promise') {
-                document.body.className = 'promise-sky';
-                moon.style.display = 'block';
-                moon.style.opacity = '0.4';
-                moon.style.width = '60px';
-                moon.style.height = '60px';
-                moon.style.top = '8%';
-                moon.style.right = '10%';
-                moon.style.boxShadow = '0 0 30px rgba(180,140,255,0.5)';
-                document.getElementById('link-promise').classList.add('active');
-
-                // Create gold & purple stars
-                for (let i = 0; i < 180; i++) createPromiseStar();
-
-                // Slow shooting stars
-                shootingStarInterval = setInterval(() => {
-                    if (Math.random() > 0.8) {
-                        const s = document.createElement('div');
-                        s.className = 'shooting-star';
-                        s.style.width = Math.random() * 80 + 60 + 'px';
-                        s.style.background = 'linear-gradient(90deg, rgba(232,201,126,0.8), transparent)';
-                        s.style.left = Math.random() * 100 + 'vw';
-                        s.style.top = Math.random() * 40 + 'vh';
-                        document.body.appendChild(s);
-                        setTimeout(() => s.remove(), 2000);
+                    if (heartScore >= 15) {
+                        clearInterval(heartInterval);
+                        setTimeout(() => showComplete("Amazing! You caught all my love! 💕"), 500);
                     }
-                }, 3500);
+                }
 
-                setTimeout(() => {
-                    promiseScene.classList.add('visible');
-                    promiseScene.style.pointerEvents = 'all';
-                    initPromiseScroll();
-                }, 300);
+                if (heartRect.top > window.innerHeight) {
+                    clearInterval(checkCollision);
+                }
+            }, 50);
+
+            setTimeout(() => {
+                heart.remove();
+                clearInterval(checkCollision);
+            }, duration * 1000 + 100);
+        }
+
+        // ========================================
+        // MEMORY GAME
+        // ========================================
+        function showMemoryGame() {
+            matchedPairs = 0;
+            flippedCards = [];
+            memoryCards = [...memorySymbols, ...memorySymbols]
+                .sort(() => Math.random() - 0.5)
+                .map((symbol, index) => ({ symbol, id: index }));
+
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = `
+                <div class="game-container card show" style="position: relative;">
+                    <button class="skip-btn" onclick="showComplete('Perfect! Our hearts are perfectly matched! 💕')">skip</button>
+                    <div class="game-title">Match Our Love! 💝</div>
+                    <div class="game-desc">Find all the matching pairs of hearts!</div>
+                    <div class="memory-grid" id="memoryGrid"></div>
+                </div>
+            `;
+
+            const grid = document.getElementById('memoryGrid');
+            memoryCards.forEach((card, index) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'memory-card';
+                cardEl.dataset.id = index;
+                cardEl.innerHTML = '<div>💌</div>';
+                cardEl.onclick = () => flipCard(index);
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function flipCard(index) {
+            const card = document.querySelector(`[data-id="${index}"]`);
+
+            if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length >= 2) {
+                return;
+            }
+
+            card.classList.add('flipped');
+            card.innerHTML = `<div>${memoryCards[index].symbol}</div>`;
+            flippedCards.push(index);
+
+            if (flippedCards.length === 2) {
+                setTimeout(checkMemoryMatch, 600);
             }
         }
 
-        // =====================
-        // BLOOM BUTTON
-        // =====================
-        function addMoreBloom() {
-            const items = ['💖', '💞', '♾️', '🌹', '🌸', '🪷', '🌻', '🌼', '🌷', '❤️', '✨'];
-            for (let j = 0; j < 20; j++) {
-                setTimeout(() => {
-                    const emoji = document.createElement('div');
-                    emoji.innerHTML = items[Math.floor(Math.random() * items.length)];
-                    emoji.style.position = 'absolute';
-                    emoji.style.left = Math.random() * 100 + 'vw';
-                    emoji.style.top = '105vh';
-                    emoji.style.fontSize = Math.random() * 20 + 20 + 'px';
-                    emoji.animate([{ transform: 'translateY(0)', opacity: 1 }, { transform: `translateY(-110vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }], { duration: 4000 }).onfinish = () => emoji.remove();
-                    document.body.appendChild(emoji);
-                }, j * 100);
+        function checkMemoryMatch() {
+            const [i1, i2] = flippedCards;
+            const card1 = document.querySelector(`[data-id="${i1}"]`);
+            const card2 = document.querySelector(`[data-id="${i2}"]`);
+
+            if (memoryCards[i1].symbol === memoryCards[i2].symbol) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+
+                for (let i = 0; i < 3; i++) createConfetti();
+
+                if (matchedPairs === memorySymbols.length) {
+                    setTimeout(() => showComplete("Perfect! Our hearts are perfectly matched! 💕"), 800);
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.innerHTML = '<div>💌</div>';
+                card2.innerHTML = '<div>💌</div>';
             }
+
+            flippedCards = [];
         }
 
-        // =====================
-        // MOUSE TRAIL
-        // =====================
-        document.addEventListener('mousemove', (e) => {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = e.clientX + 'px';
-            p.style.top = e.clientY + 'px';
-            p.style.width = p.style.height = Math.random() * 5 + 2 + 'px';
-            document.body.appendChild(p);
-            p.animate([{ opacity: 1 }, { opacity: 0 }], 1000).onfinish = () => p.remove();
-        });
+        // ========================================
+        // QUIZ
+        // ========================================
+        function showQuiz() {
+            currentQuiz = 0;
+            showQuizQuestion();
+        }
 
-        // =====================
-        // INIT
-        // =====================
-        window.onload = () => {
-            switchTo('promise');
+        function showQuizQuestion() {
+            const q = quizData[currentQuiz];
+            const container = document.getElementById('mainContainer');
+
+            container.innerHTML = `
+                <div class="game-container card show" style="position: relative;">
+                    <button class="skip-btn" onclick="currentQuiz = quizData.length - 1; showComplete('You know my heart so well! 💕')">skip</button>
+                    <div class="game-title">Questions from My Heart 💖</div>
+                    <div class="game-desc">Answer these questions about us!</div>
+                    <div class="quiz-question">${q.q}</div>
+                    <div id="quizOptions"></div>
+                </div>
+            `;
+
+            const optionsDiv = document.getElementById('quizOptions');
+            q.opts.forEach((opt, i) => {
+                const optEl = document.createElement('div');
+                optEl.className = 'quiz-option';
+                optEl.textContent = opt;
+                optEl.onclick = () => answerQuiz(i, q.ans);
+                optionsDiv.appendChild(optEl);
+            });
+        }
+
+        function answerQuiz(selected, correct) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach((opt, i) => {
+                opt.style.pointerEvents = 'none';
+                if (i === correct) opt.classList.add('correct');
+                else if (i === selected) opt.classList.add('wrong');
+            });
+
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => createConfetti(), i * 100);
+            }
+
+            setTimeout(() => {
+                currentQuiz++;
+                if (currentQuiz < quizData.length) {
+                    showQuizQuestion();
+                } else {
+                    showComplete("You know my heart so well! 💕");
+                }
+            }, 1500);
+        }
+
+        // ========================================
+        // LOVE LETTER
+        // ========================================
+        function showLetter() {
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = `
+                <div class="letter-container card show">
+                    <div class="letter-header">A Letter Written Just For You</div>
+                    <img class="letter-image" 
+                         id="letterImg"
+                         src="https://raw.githubusercontent.com/edzze-09/valentine2026/main/image.png"
+                         alt="My Love Letter">
+                    <p style="font-family: 'Cormorant Garamond', serif; color: rgba(255,255,255,0.5); font-size: 0.9rem; text-align: center; margin-top: 10px; font-style: italic;">
+                        
+                    </p>
+                    <div class="letter-footer">Forever yours, with all my love ❤️</div>
+                    <div class="letter-footer">I have a lot more to write, stay tuned❤️</div>
+
+                </div>
+            `;
+
+            setInterval(createLoveSymbol, 400);
+
+            // Try multiple image URLs
+            const img = document.getElementById('letterImg');
+            const urls = [
+                'https://raw.githubusercontent.com/edzze-09/valentine2026/main/image.png',
+                'https://github.com/edzze-09/valentine2026/raw/main/image.png',
+                'https://raw.githubusercontent.com/edzze-09/valentine2026/master/image.png',
+                'https://github.com/edzze-09/valentine2026/raw/master/image.png'
+            ];
+
+            let currentUrlIndex = 0;
+            img.onerror = function () {
+                currentUrlIndex++;
+                if (currentUrlIndex < urls.length) {
+                    console.log('Trying alternate URL:', urls[currentUrlIndex]);
+                    this.src = urls[currentUrlIndex];
+                } else {
+                    console.error('All image URLs failed. Check if the repo is public and the image exists.');
+                    this.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 600\'%3E%3Crect fill=\'%23f5f5f5\' width=\'400\' height=\'600\'/%3E%3Ctext x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'serif\' font-size=\'18\' fill=\'%23999\'%3EImage not found%3C/text%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'serif\' font-size=\'12\' fill=\'%23bbb\'%3EMake sure the GitHub repo is public%3C/text%3E%3C/svg%3E';
+                }
+            };
+        }
+
+        // ========================================
+        // INITIALIZE
+        // ========================================
+        window.onload = function () {
+            // Create stars
+            for (let i = 0; i < 200; i++) createStar();
+
+            // Start love symbols
+            setInterval(createLoveSymbol, 600);
+
+            // Show first message
+            showMessage(0);
         };
+
+        // Add CSS animation for falling hearts
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                from { top: -50px; }
+                to { top: 100%; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
-
 
 </html>
